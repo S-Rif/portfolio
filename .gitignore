@@ -1,0 +1,39 @@
+# Secrets et environnements locaux
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+kubeconfig*
+.kube/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+
+# Ansible et Python
+*.retry
+__pycache__/
+*.pyc
+.venv/
+
+# Sorties locales
+out/
+lychee/
+.lycheecache
+node_modules/
+
+# Éditeurs et systèmes
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
