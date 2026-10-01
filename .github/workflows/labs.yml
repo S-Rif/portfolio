@@ -1,0 +1,78 @@
+# Contrôle des labs : seulement ceux qui ont changé sur un push ou une PR,
+# au choix en lancement manuel (gh workflow run labs -f lab=02 -f site_intl=ma).
+name: labs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'labs/[0-9][0-9]-*/**'
+  pull_request:
+    paths:
+      - 'labs/[0-9][0-9]-*/**'
+  workflow_dispatch:
+    inputs:
+      lab:
+        description: Lab à contrôler
+        type: choice
+        options: [tous, '00', '01', '02', '03', '04', '05', '06', '07']
+        default: tous
+      site_intl:
+        description: Site international
+        type: choice
+        options: [aucun, ma, es]
+        default: aucun
+
+permissions:
+  contents: read
+
+concurrency:
+  group: labs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  selection:
+    name: Labs concernés
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      labs: ${{ steps.sel.outputs.labs }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: sel
+        name: Calculer la liste
+        env:
+          EVENT: ${{ github.event_name }}
+          CHOIX: ${{ inputs.lab }}
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -euo pipefail
+          tous=$(find labs -maxdepth 1 -type d -name '[0-9][0-9]-*' -printf '%f\n' | cut -c1-2 | sort)
+          if [ "$EVENT" = workflow_dispatch ]; then
+            if [ "$CHOIX" = tous ]; then liste=$tous; else liste=$CHOIX; fi
+          elif [ -z "$BASE" ] || ! git cat-file -e "${BASE}^{commit}" 2>/dev/null; then
+            liste=$tous
+          else
+            liste=$(git diff --name-only "$BASE" HEAD -- labs | sed -nE 's#^labs/([0-9]{2})-.*#\1#p' | sort -u)
+          fi
+          json="[$(for l in $liste; do printf '"%s",' "$l"; done | sed 's/,$//')]"
+          echo "labs=${json}" >> "$GITHUB_OUTPUT"
+          echo "Labs retenus : ${json}"
+
+  lab:
+    name: Lab
+    needs: selection
+    if: needs.selection.outputs.labs != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        lab: ${{ fromJSON(needs.selection.outputs.labs) }}
+    permissions:
+      contents: read
+    uses: ./.github/workflows/lab-reutilisable.yml
+    with:
+      lab: ${{ matrix.lab }}
+      site_intl: ${{ inputs.site_intl || 'aucun' }}
