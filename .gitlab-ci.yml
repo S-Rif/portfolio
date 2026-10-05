@@ -1,0 +1,9 @@
+# Usine GitLab du hub : chaque lab apporte son gabarit.
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+stages: [secrets, analyse, build, scan, signature]
+
+include:
+  - local: labs/01-devsecops/gitlab/secure-ci.yml

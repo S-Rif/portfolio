@@ -1,0 +1,94 @@
+variables:
+  APP_DIR: labs/01-devsecops/app
+  IMAGE: $CI_REGISTRY_IMAGE/lab01-app:$CI_COMMIT_SHORT_SHA
+  GITLEAKS_VERSION: v8.30.1        # même version que le hook pre-commit
+  SEMGREP_VERSION: 1.179.0-nonroot
+  CHECKOV_VERSION: 3.3.23
+  TRIVY_VERSION: 0.75.0
+  SYFT_VERSION: v1.54.0-nonroot
+
+gitleaks:
+  stage: secrets
+  image: { name: "ghcr.io/gitleaks/gitleaks:$GITLEAKS_VERSION", entrypoint: [""] }
+  variables:
+    GIT_DEPTH: "0"                 # tout l'historique, pas seulement le dernier commit
+  script:
+    - git config --global --add safe.directory "$CI_PROJECT_DIR"
+    - gitleaks git --redact --verbose --report-format json --report-path gitleaks.json .
+  artifacts:
+    when: always
+    paths: [gitleaks.json]
+    expire_in: 30 days
+
+semgrep:
+  stage: analyse
+  image: "semgrep/semgrep:$SEMGREP_VERSION"
+  script:
+    - semgrep scan --config p/python --error --metrics=off "$APP_DIR"
+
+checkov:
+  stage: analyse
+  image: { name: "bridgecrew/checkov:$CHECKOV_VERSION", entrypoint: [""] }
+  script:
+    - checkov -d "$APP_DIR" --framework dockerfile --compact
+
+trivy-fs:
+  stage: analyse
+  image: { name: "aquasec/trivy:$TRIVY_VERSION", entrypoint: [""] }
+  script:
+    - trivy fs --scanners vuln --severity HIGH,CRITICAL --exit-code 1 "$APP_DIR"
+
+build:
+  stage: build
+  image: docker:27
+  services: [docker:27-dind]
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - docker build -t "$IMAGE" "$APP_DIR"
+    - docker push "$IMAGE"
+    - echo "IMAGE_DIGEST=$(docker inspect --format '{{index .RepoDigests 0}}' "$IMAGE")" >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env            # IMAGE_DIGEST transmis aux jobs suivants
+
+trivy-image:
+  stage: scan
+  needs: [build]
+  image: { name: "aquasec/trivy:$TRIVY_VERSION", entrypoint: [""] }
+  variables:
+    TRIVY_USERNAME: $CI_REGISTRY_USER
+    TRIVY_PASSWORD: $CI_REGISTRY_PASSWORD
+  script:
+    - trivy image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 "$IMAGE_DIGEST"
+
+sbom:
+  stage: scan
+  needs: [build]
+  image: { name: "anchore/syft:$SYFT_VERSION-debug", entrypoint: [""] }
+  variables:
+    SYFT_REGISTRY_AUTH_AUTHORITY: $CI_REGISTRY
+    SYFT_REGISTRY_AUTH_USERNAME: $CI_REGISTRY_USER
+    SYFT_REGISTRY_AUTH_PASSWORD: $CI_REGISTRY_PASSWORD
+  script:
+    - syft "registry:$IMAGE_DIGEST" -o cyclonedx-json=sbom.cdx.json
+  artifacts:
+    paths: [sbom.cdx.json]
+    expire_in: 30 days
+
+signature:
+  stage: signature
+  needs: [build, trivy-image]
+  image: alpine:3.22
+  id_tokens:
+    SIGSTORE_ID_TOKEN:
+      aud: sigstore                # jeton d'identité du job, aucun secret stocké
+  script:
+    - apk add --no-cache cosign
+    - echo "$CI_REGISTRY_PASSWORD" | cosign login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+    - cosign sign --yes "$IMAGE_DIGEST"
+    - >
+      cosign verify "$IMAGE_DIGEST"
+      --certificate-identity "$CI_PROJECT_URL//.gitlab-ci.yml@refs/heads/$CI_COMMIT_BRANCH"
+      --certificate-oidc-issuer "$CI_SERVER_URL"
