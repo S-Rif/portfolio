@@ -1,0 +1,62 @@
+commit 9fe53db : fix(lab-01): yaml.safe_load à la place de yaml.load
+
+
+diff --git a/labs/01-devsecops/app/app.py b/labs/01-devsecops/app/app.py
+index 4f94c16..35739f7 100644
+--- a/labs/01-devsecops/app/app.py
++++ b/labs/01-devsecops/app/app.py
+@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
+
+ import yaml
+
+-CONFIG = yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)  # défaut volontaire (Semgrep)
++CONFIG = yaml.safe_load("site: lyo\nusine: HubLabs\n")
+
+
+ class Handler(BaseHTTPRequestHandler):
+commit fa5d7d1 : fix(lab-01): PyYAML 6.0.2 (CVE-2020-14343)
+
+
+diff --git a/labs/01-devsecops/app/requirements.txt b/labs/01-devsecops/app/requirements.txt
+index 7a997b5..8392d54 100644
+--- a/labs/01-devsecops/app/requirements.txt
++++ b/labs/01-devsecops/app/requirements.txt
+@@ -1 +1 @@
+-PyYAML==5.3.1
++PyYAML==6.0.2
+commit 92fcf29 : fix(lab-01): image non root et HEALTHCHECK
+
+
+diff --git a/labs/01-devsecops/app/Dockerfile b/labs/01-devsecops/app/Dockerfile
+index 894dca1..79b9048 100644
+--- a/labs/01-devsecops/app/Dockerfile
++++ b/labs/01-devsecops/app/Dockerfile
+@@ -1,7 +1,11 @@
+ FROM python:3.12-slim
+ WORKDIR /app
+ COPY requirements.txt .
+-RUN pip install --no-cache-dir -r requirements.txt
++RUN pip install --no-cache-dir -r requirements.txt \
++ && useradd --system --no-create-home --uid 10001 appuser
+ COPY app.py .
++USER appuser
+ EXPOSE 8080
++HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
++  CMD ["python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:8080/', timeout=2)"]
+ CMD ["python", "app.py"]
+commit 0092009 : fix(lab-01): mise à jour de libpcre2 (CVE-2026-103111)
+
+
+diff --git a/labs/01-devsecops/app/Dockerfile b/labs/01-devsecops/app/Dockerfile
+index 79b9048..6318861 100644
+--- a/labs/01-devsecops/app/Dockerfile
++++ b/labs/01-devsecops/app/Dockerfile
+@@ -1,5 +1,8 @@
+ FROM python:3.12-slim
+ WORKDIR /app
++RUN apt-get update \
++ && apt-get install -y --only-upgrade libpcre2-8-0 \
++ && rm -rf /var/lib/apt/lists/*
+ COPY requirements.txt .
+ RUN pip install --no-cache-dir -r requirements.txt \
+  && useradd --system --no-create-home --uid 10001 appuser
