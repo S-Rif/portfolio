@@ -5,7 +5,7 @@ variables:
   SEMGREP_VERSION: 1.179.0-nonroot
   CHECKOV_VERSION: 3.3.23
   TRIVY_VERSION: 0.75.0
-  SYFT_VERSION: v1.54.0-nonroot
+  SYFT_VERSION: "v1.54.0"
 
 gitleaks:
   stage: secrets
