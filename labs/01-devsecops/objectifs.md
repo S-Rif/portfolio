@@ -8,7 +8,7 @@ Nommage d'une preuve : `L01-On-AAAA-MM-JJ-sujet.txt` (sortie de commande, préf�
 
 | ID | Objectif mesurable | Preuve attendue | Statut | Preuve |
 | --- | --- | --- | --- | --- |
-| L01-O1 | Un secret introduit est bloqué avant le commit et en CI | Commit refusé par le hook gitleaks ; CI rouge sur le même faux jeton poussé avec `--no-verify` (sortie masquée) | À faire | |
+| L01-O1 | Un secret introduit est bloqué avant le commit et en CI | Commit refusé par le hook gitleaks ; CI rouge sur le même faux jeton poussé avec `--no-verify` (sortie masquée) | Validé | [P9a](preuves/L01-P9a-hook-local-gitleaks-2026-10-06.png), [P9b](preuves/L01-P9b-pipeline-rouge-2026-10-06.png), [P9c](preuves/L01-P9c-rapport-gitleaks-ci-2026-10-06.json) · ec802c9, d8afed3 |
 | L01-O2 | Workflow réutilisable `secure-ci` : permissions minimales, actions épinglées par SHA | Appel depuis un autre lab sans copie, actionlint vert | À faire | |
 | L01-O3 | Analyse statique du code et de l'IaC bloquante | Pipeline rouge sur une faille volontaire (Semgrep, Checkov), vert après correction | À faire | |
 | L01-O4 | Image scannée sur son digest, blocage sur CRITICAL avec correctif disponible | Rapport Trivy, exceptions justifiées et datées | À faire | |
