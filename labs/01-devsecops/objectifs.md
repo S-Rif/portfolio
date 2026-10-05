@@ -1,25 +1,23 @@
-# Lab 01 · Objectifs
+# Lab 01 · Objectifs et preuves
 
-## Mission
+Un objectif passe à « Validé » **uniquement** quand sa colonne **Preuve** est remplie : lien vers un fichier de [`preuves/`](preuves/) puis le commit court. Le workflow `qualite` refuse un « Validé » sans preuve.
 
-L'Usine HubLabs lance six projets d'infrastructure. Ce lab leur fournit un socle de pipelines sécurisés, appelé en trois lignes, maintenu à un seul endroit et versionné.
+Nommage d'une preuve : `L01-On-AAAA-MM-JJ-sujet.txt` (sortie de commande, préférée) ou `.png`. Relis-la avant de la committer : ni secret, ni jeton, ni adresse e-mail, ni donnée réelle.
 
-## Objectifs mesurables
+## Objectifs
 
-Un objectif passe à « Validé » **uniquement sur preuve**, consignée dans [preuves](preuves/README.md) avec le commit associé. Le workflow `qualite` refuse un objectif « Validé » sans preuve.
+| ID | Objectif mesurable | Preuve attendue | Statut | Preuve |
+| --- | --- | --- | --- | --- |
+| L01-O1 | Un secret introduit est bloqué avant le commit et en CI | Commit refusé par le hook gitleaks ; CI rouge sur le même faux jeton poussé avec `--no-verify` (sortie masquée) | À faire | |
+| L01-O2 | Workflow réutilisable `secure-ci` : permissions minimales, actions épinglées par SHA | Appel depuis un autre lab sans copie, actionlint vert | À faire | |
+| L01-O3 | Analyse statique du code et de l'IaC bloquante | Pipeline rouge sur une faille volontaire (Semgrep, Checkov), vert après correction | À faire | |
+| L01-O4 | Image scannée sur son digest, blocage sur CRITICAL avec correctif disponible | Rapport Trivy, exceptions justifiées et datées | À faire | |
+| L01-O5 | SBOM produit et attestation signée | Fichier SPDX JSON, attestation vérifiable sur le digest | À faire | |
+| L01-O6 | Signature sans clé stockée, vérifiée sur l'identité du workflow | `cosign verify` réussi ; contre-preuve en échec avec une mauvaise identité | À faire | |
+| L01-O7 | Équivalent GitLab CI inclus par un projet consommateur | Pipeline GitLab avec les mêmes contrôles bloquants | À faire | |
+| L01-O8 | Règle de région selon `SITE_INTL` | Plan refusé hors région autorisée, accepté dans la bonne région | À faire | |
 
-| ID | Objectif mesurable | Preuve attendue | Statut |
-| --- | --- | --- | --- |
-| L01-O1 | Un secret introduit est bloqué avant le commit et en CI | Commit refusé par le hook gitleaks ; CI rouge sur le même faux jeton poussé avec `--no-verify` (sortie masquée) | À faire |
-| L01-O2 | Workflow réutilisable `secure-ci` : permissions minimales, actions épinglées par SHA | Appel depuis un autre lab sans copie, actionlint vert | À faire |
-| L01-O3 | Analyse statique du code et de l'IaC bloquante | Pipeline rouge sur une faille volontaire (Semgrep, Checkov), vert après correction | À faire |
-| L01-O4 | Image scannée sur son digest, blocage sur CRITICAL avec correctif disponible | Rapport Trivy, exceptions justifiées et datées | À faire |
-| L01-O5 | SBOM produit et attestation signée | Fichier SPDX JSON, attestation vérifiable sur le digest | À faire |
-| L01-O6 | Signature sans clé stockée, vérifiée sur l'identité du workflow | `cosign verify` réussi ; contre-preuve en échec avec une mauvaise identité | À faire |
-| L01-O7 | Équivalent GitLab CI inclus par un projet consommateur | Pipeline GitLab avec les mêmes contrôles bloquants | À faire |
-| L01-O8 | Règle de région selon `SITE_INTL` | Plan refusé hors région autorisée, accepté dans la bonne région | À faire |
-
-Statuts possibles : À faire, En cours, Validé, Bloqué.
+Statuts : À faire, En cours, Validé, Bloqué.
 
 ## Hors périmètre
 
@@ -29,7 +27,7 @@ Statuts possibles : À faire, En cours, Validé, Bloqué.
 
 ## Compétences visées
 
-Échelle : 0 aucune notion, 1 a déjà vu, 2 sait faire avec support, 3 sait faire seul et expliquer, 4 sait le défendre devant un client et l'enseigner.
+Échelle de 0 à 4 : voir la [méthode](../README.md#niveaux-de-compétence).
 
 | Compétence | Niveau visé | Comment c'est vérifié |
 | --- | --- | --- |
@@ -38,8 +36,8 @@ Statuts possibles : À faire, En cours, Validé, Bloqué.
 | Sécurité de la chaîne logicielle : SBOM, signature, provenance | 3 | Vérification de signature expliquée |
 | Triage de vulnérabilités et faux positifs | 3 | Exception justifiée et datée |
 
-## Question de senior
-
-À préparer pour l'entretien, réponse écrite dans le [compte-rendu](compte-rendu.md) :
+## Question de connaissance
 
 Ta signature passe `cosign verify`. Que vérifies-tu réellement si tu omets `--certificate-identity` et `--certificate-oidc-issuer`, et pourquoi un attaquant pourrait-il alors produire une signature « valide » ?
+
+Réponse rédigée dans le [journal](journal.md).

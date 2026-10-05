@@ -1,5 +1,6 @@
 # Contrôle des labs : seulement ceux qui ont changé sur un push ou une PR,
 # au choix en lancement manuel (gh workflow run labs -f lab=02 -f site_intl=ma).
+# N'applique jamais rien dans le cloud.
 name: labs
 
 on:
@@ -15,7 +16,7 @@ on:
       lab:
         description: Lab à contrôler
         type: choice
-        options: [tous, '00', '01', '02', '03', '04', '05', '06', '07']
+        options: [tous, '00', '01', '02', '03', '04', '05', '06', '07', '08']
         default: tous
       site_intl:
         description: Site international
@@ -63,16 +64,118 @@ jobs:
           echo "Labs retenus : ${json}"
 
   lab:
-    name: Lab
+    name: Lab ${{ matrix.lab }}
     needs: selection
     if: needs.selection.outputs.labs != '[]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
         lab: ${{ fromJSON(needs.selection.outputs.labs) }}
-    permissions:
-      contents: read
-    uses: ./.github/workflows/lab-reutilisable.yml
-    with:
-      lab: ${{ matrix.lab }}
-      site_intl: ${{ inputs.site_intl || 'aucun' }}
+    env:
+      LAB: ${{ matrix.lab }}
+      SITE_INTL: ${{ inputs.site_intl || 'aucun' }}
+      COMPOSE_PROFILES: ${{ (inputs.site_intl && inputs.site_intl != 'aucun') && format('intl-{0}', inputs.site_intl) || '' }}
+      TZ: UTC
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - id: lab
+        name: Repérer le lab et ce qui est implémenté
+        run: |
+          set -euo pipefail
+          dir=$(find labs -maxdepth 1 -type d -name "${LAB}-*" | head -1)
+          if [ -z "$dir" ]; then echo "::error::lab ${LAB} introuvable"; exit 1; fi
+          echo "dir=${dir}" >> "$GITHUB_OUTPUT"
+          for k in compose.yaml terraform ansible gitops; do
+            if [ -e "${dir}/${k}" ]; then v=true; else v=false; fi
+            echo "${k%%.*}=${v}" >> "$GITHUB_OUTPUT"
+          done
+
+      - name: Tableau de bord
+        env:
+          DIR: ${{ steps.lab.outputs.dir }}
+          HAS_COMPOSE: ${{ steps.lab.outputs.compose }}
+          HAS_TERRAFORM: ${{ steps.lab.outputs.terraform }}
+          HAS_ANSIBLE: ${{ steps.lab.outputs.ansible }}
+          HAS_GITOPS: ${{ steps.lab.outputs.gitops }}
+        run: |
+          set -euo pipefail
+          read -r total valides < <(awk -F'|' '
+            $2 ~ /^ L[0-9][0-9]-O[0-9]+ $/ { t++; s = $5; gsub(/^ +| +$/, "", s); if (s == "Validé") v++ }
+            END { print t + 0, v + 0 }' "${DIR}/objectifs.md")
+          {
+            echo "### $(basename "$DIR")"
+            echo ""
+            echo "| Objectifs | Validés | Site international | Compose | Terraform | Ansible | GitOps |"
+            echo "|---|---|---|---|---|---|---|"
+            echo "| ${total} | ${valides} | ${SITE_INTL} | ${HAS_COMPOSE} | ${HAS_TERRAFORM} | ${HAS_ANSIBLE} | ${HAS_GITOPS} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Compose · syntaxe
+        if: steps.lab.outputs.compose == 'true'
+        working-directory: ${{ steps.lab.outputs.dir }}
+        run: docker compose config --quiet
+
+      - name: Compose · montage
+        if: steps.lab.outputs.compose == 'true'
+        working-directory: ${{ steps.lab.outputs.dir }}
+        run: docker compose up --detach --wait
+
+      - name: Compose · tests
+        if: steps.lab.outputs.compose == 'true'
+        working-directory: ${{ steps.lab.outputs.dir }}
+        run: |
+          set -euo pipefail
+          if docker compose config --services | grep -qx tests; then
+            docker compose run --rm tests
+          else
+            echo "::notice::aucun service tests dans compose.yaml"
+          fi
+
+      - name: Compose · démontage
+        if: always() && steps.lab.outputs.compose == 'true'
+        working-directory: ${{ steps.lab.outputs.dir }}
+        run: docker compose down --volumes --remove-orphans
+
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        if: steps.lab.outputs.terraform == 'true'
+        with:
+          terraform_version: 1.16.4
+          terraform_wrapper: false
+
+      - name: Terraform · format et validation (sans backend, sans apply)
+        if: steps.lab.outputs.terraform == 'true'
+        working-directory: ${{ steps.lab.outputs.dir }}/terraform
+        run: |
+          set -euo pipefail
+          terraform fmt -check -recursive
+          for m in $(find . -name '*.tf' -not -path '*/.terraform/*' -printf '%h\n' | sort -u); do
+            echo "== ${m}"
+            terraform -chdir="$m" init -backend=false -input=false > /dev/null
+            terraform -chdir="$m" validate
+          done
+
+      - name: Ansible · lint
+        if: steps.lab.outputs.ansible == 'true'
+        env:
+          DIR: ${{ steps.lab.outputs.dir }}
+        run: |
+          set -euo pipefail
+          pipx install --include-deps ansible-lint
+          ansible-lint "${DIR}/ansible"
+
+      - name: GitOps · rendu des overlays
+        if: steps.lab.outputs.gitops == 'true'
+        env:
+          DIR: ${{ steps.lab.outputs.dir }}
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          for o in "${DIR}"/gitops/overlays/*/; do
+            echo "== ${o}"
+            kubectl kustomize "$o" > /dev/null
+          done

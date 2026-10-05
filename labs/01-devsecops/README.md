@@ -4,9 +4,9 @@
 >
 > **Pitch (EN)** : Reusable secure CI/CD templates for GitHub Actions and GitLab CI: any lab gets secret detection, code and IaC scanning, image scanning, SBOM and keyless signing in three lines.
 
-| Statut | Semaine | Coût | Exécution | Emplacement |
-| --- | --- | --- | --- | --- |
-| À faire | S1 (MVP), S2 (complet) | 0 € | ci | `labs/01-devsecops` |
+| Statut | Séances de 90 min | Coût | Exécution |
+| --- | --- | --- | --- |
+| À faire | 4 | 0 € | ci |
 
 ## Le problème métier
 
@@ -44,7 +44,7 @@ Sites, plages, nommage et flux viennent du [référentiel](../../docs/referentie
 
 ## Exécution
 
-En CI, depuis n'importe quel poste :
+Contrôle en CI, sans rien installer :
 
 ```bash
 gh workflow run labs -f lab=01                    # contrôle du lab
@@ -52,18 +52,7 @@ gh workflow run labs -f lab=01 -f site_intl=ma    # variante site international
 gh run watch
 ```
 
-En local (cible, disponible quand le lab est implémenté) :
-
-```bash
-pre-commit run --all-files
-gh workflow run labs -f lab=01
-gh run watch
-cosign verify ghcr.io/s-rif/portfolio/supervision@sha256:<digest> \
-  --certificate-identity-regexp '^https://github.com/S-Rif/portfolio/' \
-  --certificate-oidc-issuer https://token.actions.githubusercontent.com
-```
-
-Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`, profils `intl-ma` et `intl-es`), `terraform/`, `ansible/`, `gitops/overlays/`. Voir la [méthode](../methode.md).
+En local, pas à pas : [guide, section Rejouer](guide.md#rejouer).
 
 ## Option site international
 
@@ -83,4 +72,4 @@ Signer sans clé : le job demande à GitHub un jeton OIDC (d'où `id-token: writ
 
 ## Documents
 
-[Objectifs](objectifs.md) · [Préparation](preparation.md) · [Planning](planning.md) · [Réplication](replication.md) · [Compte-rendu](compte-rendu.md) · [Preuves](preuves/README.md) · [Décision d'architecture](adr/ADR-001.md)
+[Objectifs et preuves](objectifs.md) · [Guide](guide.md) · [Journal](journal.md) · [Décision d'architecture](adr/ADR-001.md)
