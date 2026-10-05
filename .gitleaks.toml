@@ -1,0 +1,7 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Empreinte publique de cle de signature SSH (preuve L00-O3)"
+paths = ['''labs/00-environnement/preuves/L00-O3-.*signature\.txt''']
+regexes = ['''ED25519 key SHA256:[A-Za-z0-9+/]{43}''']
