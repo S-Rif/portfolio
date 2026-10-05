@@ -4,9 +4,9 @@
 >
 > **Pitch (EN)** : A Windows laptop turned into a reproducible Linux engineering workstation that runs every lab with no paid licence and no stored secret.
 
-| Statut | Semaine | Coût | Exécution | Emplacement |
-| --- | --- | --- | --- | --- |
-| À faire | S1 | 0 € | poste | `labs/00-environnement` |
+| Statut | Séances de 90 min | Coût | Exécution |
+| --- | --- | --- | --- |
+| À faire | 4 | 0 € | poste |
 
 ## Le problème métier
 
@@ -53,26 +53,14 @@ Sites, plages, nommage et flux viennent du [référentiel](../../docs/referentie
 
 ## Exécution
 
-En CI, depuis n'importe quel poste :
+Contrôle en CI, sans rien installer :
 
 ```bash
 gh workflow run labs -f lab=00                    # contrôle du lab
-gh workflow run labs -f lab=00 -f site_intl=ma    # variante site international
 gh run watch
 ```
 
-En local (cible, disponible quand le lab est implémenté) :
-
-```bash
-wsl --version                       # dans PowerShell
-lsb_release -ds && ps -p 1 -o comm=
-docker run --rm hello-world
-ssh -T git@github.com
-git log --show-signature -1
-pre-commit run --all-files
-```
-
-Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`, profils `intl-ma` et `intl-es`), `terraform/`, `ansible/`, `gitops/overlays/`. Voir la [méthode](../methode.md).
+En local, pas à pas : [guide, section Rejouer](guide.md#rejouer).
 
 ## Option site international
 
@@ -91,4 +79,4 @@ Le disque Linux de WSL2 est un disque virtuel ext4 lu directement par le noyau d
 
 ## Documents
 
-[Objectifs](objectifs.md) · [Préparation](preparation.md) · [Planning](planning.md) · [Réplication](replication.md) · [Compte-rendu](compte-rendu.md) · [Preuves](preuves/README.md) · [Décision d'architecture](adr/ADR-001.md)
+[Objectifs et preuves](objectifs.md) · [Guide](guide.md) · [Journal](journal.md) · [Décision d'architecture](adr/ADR-001.md)

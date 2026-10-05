@@ -4,9 +4,9 @@
 >
 > **Pitch (EN)** : Firewall rules generated from a single flow matrix, tested in CI and checked for drift: no click-ops, no undocumented rule.
 
-| Statut | Semaine | Coût | Exécution | Emplacement |
-| --- | --- | --- | --- | --- |
-| À faire | S2–S3 | 0 € | local | `labs/02-firewall-as-code` |
+| Statut | Séances de 90 min | Coût | Exécution |
+| --- | --- | --- | --- |
+| À faire | 4 | 0 € | local |
 
 ## Le problème métier
 
@@ -43,7 +43,7 @@ Sites, plages, nommage et flux viennent du [référentiel](../../docs/referentie
 
 ## Exécution
 
-En CI, depuis n'importe quel poste :
+Contrôle en CI, sans rien installer :
 
 ```bash
 gh workflow run labs -f lab=02                    # contrôle du lab
@@ -51,17 +51,7 @@ gh workflow run labs -f lab=02 -f site_intl=ma    # variante site international
 gh run watch
 ```
 
-En local (cible, disponible quand le lab est implémenté) :
-
-```bash
-cd labs/02-firewall-as-code
-docker compose up -d --wait                           # montage
-docker compose run --rm tests                         # un test par objectif
-COMPOSE_PROFILES=intl-ma docker compose up -d --wait  # variante site international
-docker compose down -v --remove-orphans               # toujours en fin de séance
-```
-
-Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`, profils `intl-ma` et `intl-es`), `terraform/`, `ansible/`, `gitops/overlays/`. Voir la [méthode](../methode.md).
+En local, pas à pas : [guide, section Rejouer](guide.md#rejouer).
 
 ## Option site international
 
@@ -76,4 +66,4 @@ Ajoute le pare-feu du site international (`int-ma-fw01` ou `int-es-fw01`) et ses
 
 ## Documents
 
-[Objectifs](objectifs.md) · [Préparation](preparation.md) · [Planning](planning.md) · [Réplication](replication.md) · [Compte-rendu](compte-rendu.md) · [Preuves](preuves/README.md) · [Décision d'architecture](adr/ADR-001.md)
+[Objectifs et preuves](objectifs.md) · [Guide](guide.md) · [Journal](journal.md) · [Décision d'architecture](adr/ADR-001.md)

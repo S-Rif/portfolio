@@ -4,9 +4,9 @@
 >
 > **Pitch (EN)** : The supervision app runs on hardened Kubernetes, first on kind then on AKS, and every change goes through Git: no manual kubectl apply, unsigned images refused.
 
-| Statut | Semaine | Coût | Exécution | Emplacement |
-| --- | --- | --- | --- | --- |
-| À faire | S8 | 0 € sur kind, AKS à mesurer | local puis cloud | `labs/05-kubernetes-gitops` |
+| Statut | Séances de 90 min | Coût | Exécution |
+| --- | --- | --- | --- |
+| À faire | 4 | 0 € sur kind, AKS à mesurer | local puis cloud |
 
 ## Le problème métier
 
@@ -45,7 +45,7 @@ Sites, plages, nommage et flux viennent du [référentiel](../../docs/referentie
 
 ## Exécution
 
-En CI, depuis n'importe quel poste :
+Contrôle en CI, sans rien installer :
 
 ```bash
 gh workflow run labs -f lab=05                    # contrôle du lab
@@ -53,17 +53,7 @@ gh workflow run labs -f lab=05 -f site_intl=ma    # variante site international
 gh run watch
 ```
 
-En local (cible, disponible quand le lab est implémenté) :
-
-```bash
-kind create cluster --name hublabs-05 --config labs/05-kubernetes-gitops/kind.yaml
-kubectl kustomize labs/05-kubernetes-gitops/gitops/overlays/kind | kubectl apply -f -   # amorçage d'Argo CD uniquement
-kind delete cluster --name hublabs-05                            # toujours en fin de séance
-```
-
-Le workflow `labs` ne fait jamais d'`apply` : il valide et planifie. Le déploiement payant passe par le workflow dédié construit pendant le lab (OIDC, approbation), puis se termine par un destroy.
-
-Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`, profils `intl-ma` et `intl-es`), `terraform/`, `ansible/`, `gitops/overlays/`. Voir la [méthode](../methode.md).
+En local, pas à pas : [guide, section Rejouer](guide.md#rejouer).
 
 ## Option site international
 
@@ -78,4 +68,4 @@ Overlay Kustomize `site-int` : fuseau UTC imposé, langue des libellés, configu
 
 ## Documents
 
-[Objectifs](objectifs.md) · [Préparation](preparation.md) · [Planning](planning.md) · [Réplication](replication.md) · [Compte-rendu](compte-rendu.md) · [Preuves](preuves/README.md) · [Décision d'architecture](adr/ADR-001.md)
+[Objectifs et preuves](objectifs.md) · [Guide](guide.md) · [Journal](journal.md) · [Décision d'architecture](adr/ADR-001.md)

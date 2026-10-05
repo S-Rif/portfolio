@@ -4,9 +4,9 @@
 >
 > **Pitch (EN)** : The same Terraform module interface deploys a virtual site on Azure or AWS, both sides linked over IPsec, through reviewed pipelines with federated identity on both clouds.
 
-| Statut | Semaine | Coût | Exécution | Emplacement |
-| --- | --- | --- | --- | --- |
-| À faire | S6–S7 | ≤ 15–20 €, à mesurer | cloud | `labs/07-iac-multicloud` |
+| Statut | Séances de 90 min | Coût | Exécution |
+| --- | --- | --- | --- |
+| À faire | 4 | ≤ 15–20 €, à mesurer | cloud |
 
 ## Le problème métier
 
@@ -48,7 +48,7 @@ Sites, plages, nommage et flux viennent du [référentiel](../../docs/referentie
 
 ## Exécution
 
-En CI, depuis n'importe quel poste :
+Contrôle en CI, sans rien installer :
 
 ```bash
 gh workflow run labs -f lab=07                    # contrôle du lab
@@ -56,19 +56,7 @@ gh workflow run labs -f lab=07 -f site_intl=ma    # variante site international
 gh run watch
 ```
 
-En local (cible, disponible quand le lab est implémenté) :
-
-```bash
-cd labs/07-iac-multicloud/terraform
-terraform init
-terraform plan -out=plan.tfplan
-terraform apply plan.tfplan        # seulement après budget et alerte créés
-terraform destroy                  # toujours en fin de séance
-```
-
-Le workflow `labs` ne fait jamais d'`apply` : il valide et planifie. Le déploiement payant passe par le workflow dédié construit pendant le lab (OIDC, approbation), puis se termine par un destroy.
-
-Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`, profils `intl-ma` et `intl-es`), `terraform/`, `ansible/`, `gitops/overlays/`. Voir la [méthode](../methode.md).
+En local, pas à pas : [guide, section Rejouer](guide.md#rejouer).
 
 ## Option site international
 
@@ -83,4 +71,4 @@ Conventions détectées par le workflow `labs` : `compose.yaml` (service `tests`
 
 ## Documents
 
-[Objectifs](objectifs.md) · [Préparation](preparation.md) · [Planning](planning.md) · [Réplication](replication.md) · [Compte-rendu](compte-rendu.md) · [Preuves](preuves/README.md) · [Décision d'architecture](adr/ADR-001.md)
+[Objectifs et preuves](objectifs.md) · [Guide](guide.md) · [Journal](journal.md) · [Décision d'architecture](adr/ADR-001.md)
