@@ -10,11 +10,11 @@ Nommage d'une preuve : `L01-On-AAAA-MM-JJ-sujet.txt` (sortie de commande, préf�
 | --- | --- | --- | --- | --- |
 | L01-O1 | Un secret introduit est bloqué avant le commit et en CI | Commit refusé par le hook gitleaks ; CI rouge sur le même faux jeton poussé avec `--no-verify` (sortie masquée) | Validé | [P9a](preuves/L01-P9a-hook-local-gitleaks-2026-10-06.png), [P9b](preuves/L01-P9b-pipeline-rouge-2026-10-06.png), [P9c](preuves/L01-P9c-rapport-gitleaks-ci-2026-10-06.json) · ec802c9, d8afed3 |
 | L01-O2 | Workflow réutilisable `secure-ci` : permissions minimales, actions épinglées par SHA | Appel depuis un autre lab sans copie, actionlint vert | À faire | |
-| L01-O3 | Analyse statique du code et de l'IaC bloquante | Pipeline rouge sur une faille volontaire (Semgrep, Checkov), vert après correction | À faire | |
-| L01-O4 | Image scannée sur son digest, blocage sur CRITICAL avec correctif disponible | Rapport Trivy, exceptions justifiées et datées | À faire | |
-| L01-O5 | SBOM produit et attestation signée | Fichier SPDX JSON, attestation vérifiable sur le digest | À faire | |
-| L01-O6 | Signature sans clé stockée, vérifiée sur l'identité du workflow | `cosign verify` réussi ; contre-preuve en échec avec une mauvaise identité | À faire | |
-| L01-O7 | Équivalent GitLab CI inclus par un projet consommateur | Pipeline GitLab avec les mêmes contrôles bloquants | À faire | |
+| L01-O3 | Analyse statique du code et de l'IaC bloquante | Pipeline rouge sur une faille volontaire (Semgrep, Checkov), vert après correction | En cours | Partiel : [P4](preuves/L01-P4-diff-corrections-2026-10-05.txt) 0f42cea, [P1](preuves/L01-P1-gitlab-historique-pipelines-2026-10-05.png) et [P5](preuves/L01-P5-gitlab-graphe-jobs-2026-10-05.png) e1efc40 ; manque : rouge Checkov capturé |
+| L01-O4 | Image scannée sur son digest, blocage sur CRITICAL avec correctif disponible | Rapport Trivy, exceptions justifiées et datées | En cours | Partiel : [P6](preuves/L01-P6-gitlab-registre-image-digest-2026-10-05.png) e1efc40, [P4](preuves/L01-P4-diff-corrections-2026-10-05.txt) 0f42cea (correctif libpcre2) ; manque : rapport Trivy et exception datée |
+| L01-O5 | SBOM produit et attestation signée | Fichier SPDX JSON, attestation vérifiable sur le digest | En cours | Partiel : [P7](preuves/L01-P7-sbom-2026-10-05.cdx.json) 307b094 (CycloneDX, pas SPDX) ; manque : attestation signée et vérifiée |
+| L01-O6 | Signature sans clé stockée, vérifiée sur l'identité du workflow | `cosign verify` réussi ; contre-preuve en échec avec une mauvaise identité | En cours | Partiel : [P8](preuves/L01-P8-cosign-verify-2026-10-06.txt) 307b094 ; manque : contre-preuve avec une mauvaise identité |
+| L01-O7 | Équivalent GitLab CI inclus par un projet consommateur | Pipeline GitLab avec les mêmes contrôles bloquants | En cours | Partiel : [P1](preuves/L01-P1-gitlab-historique-pipelines-2026-10-05.png) et [P5](preuves/L01-P5-gitlab-graphe-jobs-2026-10-05.png) e1efc40, [P9b](preuves/L01-P9b-pipeline-rouge-2026-10-06.png) ec802c9 ; à trancher : inclusion locale ou projet consommateur |
 | L01-O8 | Règle de région selon `SITE_INTL` | Plan refusé hors région autorisée, accepté dans la bonne région | À faire | |
 
 Statuts : À faire, En cours, Validé, Bloqué.
