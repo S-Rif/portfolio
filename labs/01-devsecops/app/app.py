@@ -4,7 +4,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import yaml
 
-CONFIG = yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)  # défaut volontaire (Semgrep)
+CONFIG = yaml.safe_load("site: lyo\nusine: HubLabs\n")
 
 
 class Handler(BaseHTTPRequestHandler):
