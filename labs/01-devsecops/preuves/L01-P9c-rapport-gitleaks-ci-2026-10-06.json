@@ -1,0 +1,23 @@
+[
+ {
+  "RuleID": "generic-api-key",
+  "Description": "Detected a Generic API Key, potentially exposing access to various services and sensitive operations.",
+  "StartLine": 1,
+  "EndLine": 1,
+  "StartColumn": 1,
+  "EndColumn": 44,
+  "Match": "api_key = \"REDACTED\"",
+  "Secret": "REDACTED",
+  "File": "labs/01-devsecops/app/demo-secret.txt",
+  "SymlinkFile": "",
+  "Commit": "2453c923815c4f21f193cfdb428bff944e746eda",
+  "Link": "https://gitlab.com/S-Rif/portfolio-hub/blob/2453c923815c4f21f193cfdb428bff944e746eda/labs/01-devsecops/app/demo-secret.txt#L1",
+  "Entropy": 4.9375,
+  "Author": "S-Rif",
+  "Email": "<adresse-masquee>",
+  "Date": "2026-10-05T22:29:10Z",
+  "Message": "test(lab-01): faux secret pour la démo gitleaks",
+  "Tags": [],
+  "Fingerprint": "2453c923815c4f21f193cfdb428bff944e746eda:labs/01-devsecops/app/demo-secret.txt:generic-api-key:1"
+ }
+]
