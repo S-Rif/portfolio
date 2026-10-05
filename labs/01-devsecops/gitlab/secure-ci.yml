@@ -71,8 +71,8 @@ sbom:
     SYFT_REGISTRY_AUTH_AUTHORITY: $CI_REGISTRY
     SYFT_REGISTRY_AUTH_USERNAME: $CI_REGISTRY_USER
     SYFT_REGISTRY_AUTH_PASSWORD: $CI_REGISTRY_PASSWORD
-  script:
-    - syft "registry:$IMAGE_DIGEST" -o cyclonedx-json=sbom.cdx.json
+    script:
+    - /syft "registry:$IMAGE_DIGEST" -o cyclonedx-json=sbom.cdx.json
   artifacts:
     paths: [sbom.cdx.json]
     expire_in: 30 days
