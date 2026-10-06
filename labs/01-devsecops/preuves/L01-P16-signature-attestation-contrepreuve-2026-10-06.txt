@@ -1,0 +1,94 @@
+# Source : journal du job signature, pipeline #2916825247 (commit 5ae0745) ; codes couleur et longues lignes JSON omis
+2026-10-06T08:33:03.918434Z 01O $ cosign sign --yes "$IMAGE_DIGEST"
+2026-10-06T08:33:03.944984Z 01E Generating ephemeral keys...
+2026-10-06T08:33:03.945060Z 01E Retrieving signed certificate...
+2026-10-06T08:33:04.295449Z 01E Successfully verified SCT...
+2026-10-06T08:33:04.476568Z 01E
+2026-10-06T08:33:04.476575Z 01E 	The sigstore service, hosted by sigstore a Series of LF Projects, LLC, is provided pursuant to the Hosted Project Tools Terms of Use, available at https://lfprojects.org/policies/hosted-project-tools-terms-of-use/.
+2026-10-06T08:33:04.476578Z 01E 	Note that if your submission includes personal data associated with this signed artifact, it will be part of an immutable record.
+2026-10-06T08:33:04.476580Z 01E 	This may include the email address associated with the account with which you authenticate your contractual Agreement.
+2026-10-06T08:33:04.476582Z 01E 	This information will be used for signing this artifact and will be stored in public transparency logs and cannot be removed later, and is subject to the Immutable Record notice at https://lfprojects.org/policies/hosted-project-tools-immutable-records/.
+2026-10-06T08:33:04.476584Z 01E
+2026-10-06T08:33:04.476585Z 01E By typing 'y', you attest that (1) you are not submitting the personal data of any other person; and (2) you understand and agree to the statement and the Agreement terms at the URLs listed above.
+2026-10-06T08:33:04.871753Z 01E tlog entry created with index: 3105607597
+2026-10-06T08:33:04.871759Z 01E Pushing signature to: registry.gitlab.com/s-rif/portfolio-hub/lab01-app
+2026-10-06T08:33:07.850042Z 01O $ cosign verify "$IMAGE_DIGEST" --certificate-identity "$CI_PROJECT_URL//.gitlab-ci.yml@refs/heads/$CI_COMMIT_BRANCH" --certificate-oidc-issuer "$CI_SERVER_URL"
+2026-10-06T08:33:08.275662Z 01E
+2026-10-06T08:33:08.275666Z 01E Verification for registry.gitlab.com/s-rif/portfolio-hub/lab01-app@sha256:c5634ab36f9e60e4450a382b79000da625283dd6485ce8deff8069b3bf2ddc79 --
+2026-10-06T08:33:08.275668Z 01E The following checks were performed on each of these signatures:
+2026-10-06T08:33:08.275695Z 01E   - The cosign claims were validated
+2026-10-06T08:33:08.275696Z 01E   - Existence of the claims in the transparency log was verified offline
+2026-10-06T08:33:08.275697Z 01E   - The code-signing certificate was verified using trusted certificate authority certificates
+2026-10-06T08:33:08.276014Z 01O
+2026-10-06T08:33:08.278297Z 01O $ cosign attest --yes --predicate sbom.spdx.json --type spdxjson "$IMAGE_DIGEST"
+2026-10-06T08:33:08.307109Z 01E Generating ephemeral keys...
+2026-10-06T08:33:08.307118Z 01E Retrieving signed certificate...
+2026-10-06T08:33:08.487499Z 01E Successfully verified SCT...
+2026-10-06T08:33:08.487504Z 01E Using payload from: sbom.spdx.json
+2026-10-06T08:33:08.561290Z 01E
+2026-10-06T08:33:08.561296Z 01E 	The sigstore service, hosted by sigstore a Series of LF Projects, LLC, is provided pursuant to the Hosted Project Tools Terms of Use, available at https://lfprojects.org/policies/hosted-project-tools-terms-of-use/.
+2026-10-06T08:33:08.561298Z 01E 	Note that if your submission includes personal data associated with this signed artifact, it will be part of an immutable record.
+2026-10-06T08:33:08.561299Z 01E 	This may include the email address associated with the account with which you authenticate your contractual Agreement.
+2026-10-06T08:33:08.561300Z 01E 	This information will be used for signing this artifact and will be stored in public transparency logs and cannot be removed later, and is subject to the Immutable Record notice at https://lfprojects.org/policies/hosted-project-tools-immutable-records/.
+2026-10-06T08:33:08.561302Z 01E
+2026-10-06T08:33:08.561302Z 01E By typing 'y', you attest that (1) you are not submitting the personal data of any other person; and (2) you understand and agree to the statement and the Agreement terms at the URLs listed above.
+2026-10-06T08:33:08.561304Z 01E using ephemeral certificate:
+2026-10-06T08:33:08.561304Z 01E -----BEGIN CERTIFICATE-----
+2026-10-06T08:33:08.561305Z 01E MIIF6zCCBXGgAwIBAgIUbkQWDcUwqUJttrDLy1m++ew3pDQwCgYIKoZIzj0EAwMw
+2026-10-06T08:33:08.561306Z 01E NzEVMBMGA1UEChMMc2lnc3RvcmUuZGV2MR4wHAYDVQQDExVzaWdzdG9yZS1pbnRl
+2026-10-06T08:33:08.561306Z 01E cm1lZGlhdGUwHhcNMjYxMDA2MDgzMzA4WhcNMjYxMDA2MDg0MzA4WjAAMFkwEwYH
+2026-10-06T08:33:08.561307Z 01E KoZIzj0CAQYIKoZIzj0DAQcDQgAEtGZZsBHq2DGQDfGQi5ooffCoPTiFtohSo4Mc
+2026-10-06T08:33:08.561307Z 01E k5Xomw8ilwNSSMkuzGqUZK9eKVFhX2IbdHRonDt4f7YQ27/TJaOCBJAwggSMMA4G
+2026-10-06T08:33:08.561308Z 01E A1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAzAfBgNVHSMEGDAWgBTf
+2026-10-06T08:33:08.561308Z 01E 0+nPViQRlvmo2OkoVaLGLhhkPzBbBgNVHREBAf8EUTBPhk1odHRwczovL2dpdGxh
+2026-10-06T08:33:08.561309Z 01E Yi5jb20vUy1SaWYvcG9ydGZvbGlvLWh1Yi8vLmdpdGxhYi1jaS55bWxAcmVmcy9o
+2026-10-06T08:33:08.561309Z 01E ZWFkcy9zcHJpbnQvbGFiczAgBgorBgEEAYO/MAEBBBJodHRwczovL2dpdGxhYi5j
+2026-10-06T08:33:08.561310Z 01E b20wIgYKKwYBBAGDvzABCAQUDBJodHRwczovL2dpdGxhYi5jb20wXQYKKwYBBAGD
+2026-10-06T08:33:08.561310Z 01E vzABCQRPDE1odHRwczovL2dpdGxhYi5jb20vUy1SaWYvcG9ydGZvbGlvLWh1Yi8v
+2026-10-06T08:33:08.561311Z 01E LmdpdGxhYi1jaS55bWxAcmVmcy9oZWFkcy9zcHJpbnQvbGFiczA4BgorBgEEAYO/
+2026-10-06T08:33:08.561311Z 01E MAEKBCoMKDVhZTA3NDU0NzU1N2RlYzNjNWE3YTZjY2VjN2FkODRlZTM4ZmJjYzIw
+2026-10-06T08:33:08.561349Z 01E HQYKKwYBBAGDvzABCwQPDA1naXRsYWItaG9zdGVkMDYGCisGAQQBg78wAQwEKAwm
+2026-10-06T08:33:08.561350Z 01E aHR0cHM6Ly9naXRsYWIuY29tL1MtUmlmL3BvcnRmb2xpby1odWIwOAYKKwYBBAGD
+2026-10-06T08:33:08.561351Z 01E vzABDQQqDCg1YWUwNzQ1NDc1NTdkZWMzYzVhN2E2Y2NlYzdhZDg0ZWUzOGZiY2My
+2026-10-06T08:33:08.561351Z 01E MCYGCisGAQQBg78wAQ4EGAwWcmVmcy9oZWFkcy9zcHJpbnQvbGFiczAYBgorBgEE
+2026-10-06T08:33:08.561352Z 01E AYO/MAEPBAoMCDg3MTQ0MDM4MCgGCisGAQQBg78wARAEGgwYaHR0cHM6Ly9naXRs
+2026-10-06T08:33:08.561352Z 01E YWIuY29tL1MtUmlmMBkGCisGAQQBg78wAREECwwJMTQzNjcxODU0MF0GCisGAQQB
+2026-10-06T08:33:08.561374Z 01E g78wARIETwxNaHR0cHM6Ly9naXRsYWIuY29tL1MtUmlmL3BvcnRmb2xpby1odWIv
+2026-10-06T08:33:08.561375Z 01E Ly5naXRsYWItY2kueW1sQHJlZnMvaGVhZHMvc3ByaW50L2xhYnMwOAYKKwYBBAGD
+2026-10-06T08:33:08.561376Z 01E vzABEwQqDCg1YWUwNzQ1NDc1NTdkZWMzYzVhN2E2Y2NlYzdhZDg0ZWUzOGZiY2My
+2026-10-06T08:33:08.561376Z 01E MBQGCisGAQQBg78wARQEBgwEcHVzaDBJBgorBgEEAYO/MAEVBDsMOWh0dHBzOi8v
+2026-10-06T08:33:08.561377Z 01E Z2l0bGFiLmNvbS9TLVJpZi9wb3J0Zm9saW8taHViLy0vam9icy8xNjk2MTY2NDA2
+2026-10-06T08:33:08.561378Z 01E MzAXBgorBgEEAYO/MAEWBAkMB3ByaXZhdGUwUAYKKwYBBAGDvzABGARCDEBwcm9q
+2026-10-06T08:33:08.561379Z 01E ZWN0X3BhdGg6Uy1SaWYvcG9ydGZvbGlvLWh1YjpyZWZfdHlwZTpicmFuY2g6cmVm
+2026-10-06T08:33:08.561380Z 01E OnNwcmludC9sYWJzMIGKBgorBgEEAdZ5AgQCBHwEegB4AHYA3T0wasbHETJjGR4c
+2026-10-06T08:33:08.561381Z 01E mWc3AqJKXrjePK3/h4pygC8p7o4AAAGhEFhbKgAABAMARzBFAiBfOgXY+JyReUp2
+2026-10-06T08:33:08.561381Z 01E Bh6+p00dhRRVxav12RlKO/DZRMXS6AIhAMWzAtOb31L4oB1j1vG+TfUgS8i6RgLb
+2026-10-06T08:33:08.561382Z 01E 1I456gVKTWa5MAoGCCqGSM49BAMDA2gAMGUCMQCFAqppDNIF2+1RMWN/EQWSmxD8
+2026-10-06T08:33:08.561383Z 01E P4Oa3HUrZnfszhoYa2rsqy1dGgqnm4mP02oxstICMHzY1u1lTT9h8puPEG0OFtZ2
+2026-10-06T08:33:08.561384Z 01E 2fE4D8jNM70FGU0uRqJj8WJ3dyK/WHqqK3nYysBMhA==
+2026-10-06T08:33:08.561385Z 01E -----END CERTIFICATE-----
+2026-10-06T08:33:08.561385Z 01E
+2026-10-06T08:33:09.441505Z 01E tlog entry created with index: 3105607940
+2026-10-06T08:33:12.526508Z 01O $ cosign verify-attestation --type spdxjson "$IMAGE_DIGEST" --certificate-identity "$CI_PROJECT_URL//.gitlab-ci.yml@refs/heads/$CI_COMMIT_BRANCH" --certificate-oidc-issuer "$CI_SERVER_URL" > attestation.json
+2026-10-06T08:33:13.087117Z 01E
+2026-10-06T08:33:13.087121Z 01E Verification for registry.gitlab.com/s-rif/portfolio-hub/lab01-app@sha256:c5634ab36f9e60e4450a382b79000da625283dd6485ce8deff8069b3bf2ddc79 --
+2026-10-06T08:33:13.087122Z 01E The following checks were performed on each of these signatures:
+2026-10-06T08:33:13.087123Z 01E   - The cosign claims were validated
+2026-10-06T08:33:13.087124Z 01E   - Existence of the claims in the transparency log was verified offline
+2026-10-06T08:33:13.087125Z 01E   - The code-signing certificate was verified using trusted certificate authority certificates
+2026-10-06T08:33:13.087134Z 01E Certificate subject: https://gitlab.com/S-Rif/portfolio-hub//.gitlab-ci.yml@refs/heads/sprint/labs
+2026-10-06T08:33:13.087135Z 01E Certificate issuer URL: https://gitlab.com
+2026-10-06T08:33:13.098035Z 01O $ echo "attestation spdxjson verifiee, taille $(wc -c < attestation.json) octets"
+2026-10-06T08:33:13.108299Z 01O attestation spdxjson verifiee, taille 3007453 octets
+2026-10-06T08:33:13.108307Z 01O $ if cosign verify "$IMAGE_DIGEST" \ # collapsed multi-line command
+2026-10-06T08:33:13.442108Z 01E Error: no matching signatures: none of the expected identities matched what was in the certificate, got subjects [https://gitlab.com/S-Rif/portfolio-hub//.gitlab-ci.yml@refs/heads/sprint/labs] with issuer https://gitlab.com
+2026-10-06T08:33:13.442113Z 01E error during command execution: no matching signatures: none of the expected identities matched what was in the certificate, got subjects [https://gitlab.com/S-Rif/portfolio-hub//.gitlab-ci.yml@refs/heads/sprint/labs] with issuer https://gitlab.com
+2026-10-06T08:33:13.443587Z 01O CONTRE-PREUVE OK : identite erronee refusee
+2026-10-06T08:33:13.597182Z 00O section_end:1791275593:step_script
+
+2026-10-06T08:33:13.598750Z 00O+section_start:1791275593:cleanup_file_variables
+
+2026-10-06T08:33:13.598786Z 00O+Cleaning up project directory and file based variables
+2026-10-06T08:33:14.081769Z 00O section_end:1791275594:cleanup_file_variables
+
+2026-10-06T08:33:14.103090Z 00O Job succeeded

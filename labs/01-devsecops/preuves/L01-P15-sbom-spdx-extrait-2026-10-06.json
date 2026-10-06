@@ -1,0 +1,65 @@
+{
+ "spdxVersion": "SPDX-2.3",
+ "name": "registry.gitlab.com/s-rif/portfolio-hub/lab01-app",
+ "creationInfo": {
+  "licenseListVersion": "3.29",
+  "creators": [
+   "Organization: Anchore, Inc",
+   "Tool: syft-1.54.0"
+  ],
+  "created": "2026-10-06T08:32:37Z"
+ },
+ "documentNamespace": "https://anchore.com/syft/image/registry.gitlab.com/s-rif/portfolio-hub/lab01-app-414dd893-2d24-4fd0-b993-b439b3b444fe",
+ "nombre_de_packages": 97,
+ "nombre_de_relations": 3149,
+ "packages_extraits": [
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "Simple Launcher",
+   "versionInfo": "1.1.0.14"
+  },
+  {
+   "name": "adduser",
+   "versionInfo": "3.152"
+  },
+  {
+   "name": "apt",
+   "versionInfo": "3.0.3"
+  },
+  {
+   "name": "base-files",
+   "versionInfo": "13.8+deb13u7"
+  },
+  {
+   "name": "base-passwd",
+   "versionInfo": "3.6.7"
+  },
+  {
+   "name": "libpcre2-8-0",
+   "versionInfo": "10.46-1~deb13u3"
+  },
+  {
+   "name": "pyyaml",
+   "versionInfo": "6.0.2"
+  }
+ ]
+}
