@@ -1,0 +1,24 @@
+# Rejeu GitHub de la chaîne DevSecOps du lab 01 : appelle le workflow réutilisable secure-ci.
+name: devsecops
+on:
+  push:
+    branches: [main, sprint/labs]
+    paths:
+      - "labs/01-devsecops/app/**"
+      - ".github/workflows/devsecops.yml"
+      - ".github/workflows/secure-ci.yml"
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: devsecops-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lab01:
+    uses: ./.github/workflows/secure-ci.yml
+    with:
+      app_dir: labs/01-devsecops/app
+      image_name: lab01-app
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
