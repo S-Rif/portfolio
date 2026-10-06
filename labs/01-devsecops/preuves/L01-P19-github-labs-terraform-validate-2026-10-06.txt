@@ -1,0 +1,25 @@
+# Workflow labs (lab=01, site_intl=es) : validation de la règle Terraform en CI, 2026-10-06
+conclusion : success
+commit : 063b552
+run : https://github.com/S-Rif/portfolio/actions/runs/37444141607
+job : Labs concernés -> success
+  - Set up job : success
+  - Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 : success
+  - Calculer la liste : success
+  - Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 : success
+  - Complete job : success
+job : Lab 01 -> success
+  - Set up job : success
+  - Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 : success
+  - Repérer le lab et ce qui est implémenté : success
+  - Tableau de bord : success
+  - Compose · syntaxe : skipped
+  - Compose · montage : skipped
+  - Compose · tests : skipped
+  - Compose · démontage : skipped
+  - Run hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e : success
+  - Terraform · format et validation (sans backend, sans apply) : success
+  - Ansible · lint : skipped
+  - GitOps · rendu des overlays : skipped
+  - Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 : success
+  - Complete job : success
