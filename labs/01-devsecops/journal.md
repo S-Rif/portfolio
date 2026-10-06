@@ -69,7 +69,7 @@ produite par mon pipeline est acceptée. Ma contre-preuve le montre : avec une m
 
 ### Résultats
 
-O3 validé (réserve : rouge Checkov prouvé en local, P13). O4 à O7 validés par le pipeline #2916825247 (commit 5ae0745) : `signature` dépend de `sbom`, SPDX et attestation vérifiée, identité erronée refusée, rapport Trivy en artefact. O7 : inclusion locale du gabarit, voir ADR-001.
+O3 validé (réserve : rouge Checkov prouvé en local, P13). O4 à O7 validés par le pipeline #2916825247 (commit 5ae0745) : `signature` dépend de `sbom`, SPDX et attestation vérifiée, identité erronée refusée, rapport Trivy en artefact. O7 : inclusion locale du gabarit, voir ADR-001. O2 : workflow GitHub réutilisable `secure-ci` appelé par `devsecops` (P10, P17). O8 : règle de région Terraform lue dans le référentiel (P18, P19).
 
 ### Blocages et leçons
 
@@ -80,5 +80,5 @@ O3 validé (réserve : rouge Checkov prouvé en local, P13). O4 à O7 validés p
 
 ### Reste à faire
 
-- O2 : workflow GitHub `devsecops` (étape 01-8, P10) et workflow réutilisable.
-- O8 : règle `SITE_INTL`.
+- Publication : PR `sprint/labs` vers `main`, puis tag `lab-01-v1.0.0`.
+- Réserves à lever : second consommateur de `secure-ci` (lab 02), région du site Maroc absente du référentiel, règle de région à porter en Azure Policy au lab 04.

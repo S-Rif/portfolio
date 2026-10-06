@@ -23,6 +23,10 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 | P14 | Rapport Trivy JSON de l'image, digest scanné, aucun HIGH ni CRITICAL corrigeable (pipeline #2916825247) | `L01-P14-trivy-image-rapport-2026-10-06.json` | O4 | 4014e8a |
 | P15 | Extrait du SPDX de l'image ; le fichier complet est l'artefact du pipeline, expiré après 30 jours | `L01-P15-sbom-spdx-extrait-2026-10-06.json` | O5 | 4014e8a |
 | P16 | Journal du job signature : signature, vérification, attestation SPDX vérifiée, identité erronée refusée (digest c5634ab3) | `L01-P16-signature-attestation-contrepreuve-2026-10-06.txt` | O5, O6 | 4014e8a |
+| P10 | Run GitHub Actions `devsecops` vert : analyse, image GHCR, SBOM, signature sans clé vérifiée | `L01-P10-github-devsecops-run-2026-10-06.txt` | O2 | 53d012f |
+| P17 | actionlint vert sur `secure-ci.yml` et `devsecops.yml` | `L01-P17-actionlint-2026-10-06.txt` | O2 | 53d012f |
+| P18 | Règle de région `SITE_INTL` : cinq plans Terraform, trois acceptés, deux refusés par la règle | `L01-P18-terraform-region-plans-2026-10-06.txt` | O8 | 063b552 |
+| P19 | Workflow `labs` (lab 01, `site_intl=es`) : format et validation Terraform verts en CI | `L01-P19-github-labs-terraform-validate-2026-10-06.txt` | O8 | 8e79e86 |
 
 ## Preuves non obtenues
 
@@ -30,7 +34,7 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 | --- | --- | --- |
 | P2 | Rejeu local des trois scanners en code 1 | Couverte par P13 |
 | P3 | Pipeline rouge Semgrep, Checkov et Trivy | Partielle : Semgrep et Trivy-fs rouges en CI (P3a à P3c) ; Checkov rouge en local seulement (P13), son job CI avait été annulé |
-| P10 | Rejeu GitHub du contrôle DevSecOps | Non obtenue : aucun workflow dédié |
+| P10 | Rejeu GitHub du contrôle DevSecOps | Fournie, voir le tableau des preuves fournies |
 
 ## Historique à connaître
 
@@ -40,3 +44,5 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 - Le pipeline #2916825247 (commit 5ae0745) ajoute SPDX, attestation et contre-preuve d'identité ; `signature` dépend désormais de `sbom` (BLO-E corrigé ; la cause exacte sur #2913784605 reste une déduction).
 - P14 : les valeurs `GPG_KEY` de l'image de base (empreinte publique d'une clé de signature) sont masquées dans la copie versée, faux positif de gitleaks sur le rapport Trivy.
 - Adresses e-mail de tiers (mainteneurs de paquets) masquées dans la copie versée de : P14, P7 (règle du dépôt : aucune adresse e-mail).
+- P18 : la règle est jouée en local avec `terraform_data` (aucune ressource cloud) ; la CI ne fait que `fmt` et `validate`. Le site `ma` est refusé tant que le référentiel ne définit pas sa région.
+- O2 : un seul workflow appelant (lab 01) ; un second consommateur de `secure-ci` est prévu au lab 02.
