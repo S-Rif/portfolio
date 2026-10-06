@@ -47,7 +47,7 @@ flowchart TD
 | # | Lab | Ce que ça démontre | Stack | Statut |
 | --- | --- | --- | --- | --- |
 | 00 | [Environnement](labs/00-environnement/README.md) | Poste Linux reproductible, commits signés, secrets bloqués avant commit | WSL2, Docker Engine, Git, pre-commit, gitleaks | À faire |
-| 01 | [DevSecOps](labs/01-devsecops/README.md) | CI/CD qui bloque secrets et failles, SBOM, signature sans clé | GitHub Actions, GitLab CI, gitleaks, Semgrep, Checkov, Trivy, Syft, Cosign | À faire |
+| 01 | [DevSecOps](labs/01-devsecops/README.md) | CI/CD qui bloque secrets et failles, SBOM, signature sans clé | GitHub Actions, GitLab CI, gitleaks, Semgrep, Checkov, Trivy, Syft, Cosign | Validé |
 | 02 | [Firewall as Code](labs/02-firewall-as-code/README.md) | Pare-feu déclaratif, tests de flux, détection de dérive | Ansible, Molecule, nftables, FortiGate en bonus | À faire |
 | 03 | [Segmentation OT/IT](labs/03-segmentation-ot-it/README.md) | Modèle Purdue, zones et conduits IEC 62443, détection Modbus | Docker, Suricata, Loki, Grafana, Packet Tracer | À faire |
 | 04 | [Landing zone Azure](labs/04-landing-zone-azure/README.md) | Hub-spoke, Azure Policy, budget, déploiement sans secret (OIDC) | Terraform, Azure | À faire |

@@ -9,7 +9,7 @@ Ordre de réalisation : le 07 passe avant le 05, car il réutilise l'état dista
 | # | Lab | Séances | Coût | S'appuie sur | Statut |
 | --- | --- | --- | --- | --- | --- |
 | 00 | [Environnement](00-environnement/README.md) | 4 | 0 € | — | À faire |
-| 01 | [DevSecOps](01-devsecops/README.md) | 4 | 0 € | 00 (poste, Git signé, pre-commit) | À faire |
+| 01 | [DevSecOps](01-devsecops/README.md) | 4 | 0 € | 00 (poste, Git signé, pre-commit) | Validé |
 | 02 | [Firewall as Code](02-firewall-as-code/README.md) | 4 | 0 € | 01 (`secure-ci`) | À faire |
 | 03 | [Segmentation OT/IT](03-segmentation-ot-it/README.md) | 4 | 0 € | 02 (`policy.yml`, rôle `nva`) | À faire |
 | 04 | [Landing zone Azure](04-landing-zone-azure/README.md) | 4 | ≤ 15–20 €, à mesurer | 02 (rôle `nva`) | À faire |
