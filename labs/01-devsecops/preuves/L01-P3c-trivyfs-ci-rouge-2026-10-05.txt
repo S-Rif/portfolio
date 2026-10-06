@@ -1,0 +1,106 @@
+2026-10-05T12:57:58.133279Z 00O Running with gitlab-runner 19.5.0~pre.2227.gd402309d (d402309d)
+2026-10-05T12:57:58.133304Z 00O   on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_Sun4g3GLZGTc
+2026-10-05T12:57:58.133307Z 00O   UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387
+2026-10-05T12:57:58.133316Z 00O   feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true
+2026-10-05T12:57:58.133350Z 00O section_start:1791205078:prepare_executor
+
+2026-10-05T12:57:58.133353Z 00O+Preparing the "docker+machine" executor
+2026-10-05T12:57:58.328787Z 00O Using Docker executor with image aquasec/trivy:0.75.0 ...
+2026-10-05T12:57:58.328855Z 00O Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+2026-10-05T12:57:58.328869Z 00O Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+2026-10-05T12:57:58.329717Z 00O Authenticating with credentials from job payload (GitLab Registry)
+2026-10-05T12:57:58.329732Z 00O Pulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d ...
+2026-10-05T12:58:00.138853Z 00O Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+2026-10-05T12:58:01.868079Z 00O Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+2026-10-05T12:58:01.868100Z 00O Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+2026-10-05T12:58:01.869592Z 00O Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+2026-10-05T12:58:01.869609Z 00O Using effective pull policy of [always] for container aquasec/trivy:0.75.0
+2026-10-05T12:58:01.870278Z 00O Pulling docker image aquasec/trivy:0.75.0 ...
+2026-10-05T12:58:05.505572Z 00O Using docker image sha256:6d93f1ec925b37c5ce785e416b86cba056e10c8c2914a59a8ea7be18115d6764 for aquasec/trivy:0.75.0 with digest aquasec/trivy@sha256:af6acf9a6b85dfe389a1941505c0ce9efef52a4719635e1a962f022a3d855daa ...
+2026-10-05T12:58:05.505671Z 00O section_end:1791205085:prepare_executor
+
+2026-10-05T12:58:05.505862Z 00O+section_start:1791205085:prepare_script
+
+2026-10-05T12:58:05.505870Z 00O+Preparing environment
+2026-10-05T12:58:05.505917Z 00O Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+2026-10-05T12:58:05.505929Z 00O Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+2026-10-05T12:58:05.507036Z 00O Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+2026-10-05T12:58:05.507048Z 00O Using effective pull policy of [always] for container sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67
+2026-10-05T12:58:07.046634Z 01O Running on runner-nezyxejex-project-87144038-concurrent-0 via runner-nezyxejex-s-l-s-amd64-1791205049-c279467d...
+2026-10-05T12:58:07.197471Z 00O section_end:1791205087:prepare_script
+
+2026-10-05T12:58:07.198153Z 00O+section_start:1791205087:get_sources
+
+2026-10-05T12:58:07.198163Z 00O+Getting source from Git repository
+2026-10-05T12:58:07.545423Z 01O Gitaly correlation ID: 0067d1dbf80e4b77af2d46c02cf09151
+2026-10-05T12:58:07.550630Z 01O Fetching changes with git depth set to 20...
+2026-10-05T12:58:07.553374Z 01O Initialized empty Git repository in /builds/S-Rif/portfolio-hub/.git/
+2026-10-05T12:58:07.555286Z 01O Created fresh repository.
+2026-10-05T12:58:09.195574Z 01O Checking out 62764741 as detached HEAD (ref is sprint/labs)...
+2026-10-05T12:58:09.236427Z 01O
+2026-10-05T12:58:09.236465Z 01O Skipping Git submodules setup
+2026-10-05T12:58:09.236515Z 01O $ git remote set-url origin "${CI_REPOSITORY_URL}" || echo 'Not a git repository; skipping'
+2026-10-05T12:58:09.398631Z 00O section_end:1791205089:get_sources
+
+2026-10-05T12:58:09.399267Z 00O+section_start:1791205089:download_artifacts
+
+2026-10-05T12:58:09.399274Z 00O+Downloading artifacts
+2026-10-05T12:58:09.769332Z 01O Downloading artifacts for gitleaks (16938515154)...
+2026-10-05T12:58:10.010599Z 01E Direct download from storage.googleapis.com         correlation_id=6450fcce3f9348c4a4c1d61bd8656201 id=16938515154 status=302 token=74_FvMsxz
+2026-10-05T12:58:10.149647Z 01E Downloading artifacts from coordinator... ok        correlation_id=6450fcce3f9348c4a4c1d61bd8656201 id=16938515154 status=302 token=74_FvMsxz
+2026-10-05T12:58:10.302943Z 00O section_end:1791205090:download_artifacts
+
+2026-10-05T12:58:10.303242Z 00O+section_start:1791205090:step_script
+
+2026-10-05T12:58:10.303249Z 00O+Executing "step_script" stage of the job script
+2026-10-05T12:58:10.303260Z 00O Using effective pull policy of [always] for container aquasec/trivy:0.75.0
+2026-10-05T12:58:10.304252Z 00O Using docker image sha256:6d93f1ec925b37c5ce785e416b86cba056e10c8c2914a59a8ea7be18115d6764 for aquasec/trivy:0.75.0 with digest aquasec/trivy@sha256:af6acf9a6b85dfe389a1941505c0ce9efef52a4719635e1a962f022a3d855daa ...
+2026-10-05T12:58:10.636841Z 01O $ trivy fs --scanners vuln --severity HIGH,CRITICAL --exit-code 1 "$APP_DIR"
+2026-10-05T12:58:10.731985Z 01E 2026-10-05T12:58:10Z	INFO	[vulndb] Need to update DB
+2026-10-05T12:58:10.731993Z 01E 2026-10-05T12:58:10Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-10-05T12:58:10.731994Z 01E 2026-10-05T12:58:10Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-10-05T12:58:11.754776Z 01E 41.76 MiB / 120.92 MiB [-------------------->_______________________________________] 34.53% ? p/s ?86.41 MiB / 120.92 MiB [------------------------------------------>_________________] 71.46% ? p/s ?120.92 MiB / 120.92 MiB [--------------------------------------------------------->] 100.00% ? p/s ?120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 131.93 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 131.93 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 131.93 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 123.42 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 123.42 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 123.42 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 115.46 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 115.46 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 115.46 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 108.01 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 108.01 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 108.01 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 101.04 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 101.04 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [------------------------------------------->] 100.00% 101.04 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.52 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.52 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.52 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 88.43 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-----------------------------------------------] 100.00% 28.59 MiB p/s 4.4s2026-10-05T12:58:15Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-10-05T12:58:16.287614Z 01E 2026-10-05T12:58:16Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-05T12:58:16.291073Z 01E 2026-10-05T12:58:16Z	WARN	[pip] Unable to find python `site-packages` directory. License detection is skipped.	err="unable to find path to Python executable"
+2026-10-05T12:58:16.291081Z 01E 2026-10-05T12:58:16Z	INFO	Number of language-specific files	num=1
+2026-10-05T12:58:16.291083Z 01E 2026-10-05T12:58:16Z	INFO	[pip] Detecting vulnerabilities...
+2026-10-05T12:58:16.292133Z 01O
+2026-10-05T12:58:16.292143Z 01O Report Summary
+2026-10-05T12:58:16.292144Z 01O
+2026-10-05T12:58:16.292144Z 01O ┌──────────────────┬──────┬─────────────────┐
+2026-10-05T12:58:16.292146Z 01O │      Target      │ Type │ Vulnerabilities │
+2026-10-05T12:58:16.292148Z 01O ├──────────────────┼──────┼─────────────────┤
+2026-10-05T12:58:16.292149Z 01O │ requirements.txt │ pip  │        1        │
+2026-10-05T12:58:16.292150Z 01O └──────────────────┴──────┴─────────────────┘
+2026-10-05T12:58:16.292151Z 01O Legend:
+2026-10-05T12:58:16.292151Z 01O - '-': Not scanned
+2026-10-05T12:58:16.292152Z 01O - '0': Clean (no security findings detected)
+2026-10-05T12:58:16.292152Z 01O
+2026-10-05T12:58:16.292153Z 01O
+2026-10-05T12:58:16.292153Z 01O For OSS Maintainers: VEX Notice
+2026-10-05T12:58:16.292153Z 01O --------------------------------
+2026-10-05T12:58:16.292154Z 01O If you're an OSS maintainer and Trivy has detected vulnerabilities in your project that you believe are not actually exploitable, consider issuing a VEX (Vulnerability Exploitability eXchange) statement.
+2026-10-05T12:58:16.292155Z 01O VEX allows you to communicate the actual status of vulnerabilities in your project, improving security transparency and reducing false positives for your users.
+2026-10-05T12:58:16.292156Z 01O Learn more and start using VEX: https://trivy.dev/docs/v0.75/guide/supply-chain/vex/repo#publishing-vex-documents
+2026-10-05T12:58:16.292156Z 01O
+2026-10-05T12:58:16.292157Z 01O To disable this notice, set the TRIVY_DISABLE_VEX_NOTICE environment variable.
+2026-10-05T12:58:16.292157Z 01O
+2026-10-05T12:58:16.292158Z 01O
+2026-10-05T12:58:16.292158Z 01O requirements.txt (pip)
+2026-10-05T12:58:16.292158Z 01O ======================
+2026-10-05T12:58:16.292159Z 01O Total: 1 (HIGH: 0, CRITICAL: 1)
+2026-10-05T12:58:16.292159Z 01O
+2026-10-05T12:58:16.292160Z 01O ┌─────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬────────────────────────────────────────────┐
+2026-10-05T12:58:16.292161Z 01O │ Library │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                   Title                    │
+2026-10-05T12:58:16.292162Z 01O ├─────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼────────────────────────────────────────────┤
+2026-10-05T12:58:16.292164Z 01O │ PyYAML  │ CVE-2020-14343 │ CRITICAL │ fixed  │ 5.3.1             │ 5.4           │ PyYAML: incomplete fix for CVE-2020-1747   │
+2026-10-05T12:58:16.292165Z 01O │         │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2020-14343 │
+2026-10-05T12:58:16.292166Z 01O └─────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴────────────────────────────────────────────┘
+2026-10-05T12:58:24.876215Z 00O section_end:1791205104:step_script
+
+2026-10-05T12:58:24.877482Z 00O+section_start:1791205104:cleanup_file_variables
+
+2026-10-05T12:58:24.877530Z 00O+Cleaning up project directory and file based variables
+2026-10-05T12:58:25.372232Z 00O section_end:1791205105:cleanup_file_variables
+
+2026-10-05T12:58:25.519719Z 00O ERROR: Job failed: exit code 1

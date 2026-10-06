@@ -1,0 +1,86 @@
+Running with gitlab-runner 19.5.0~pre.2227.gd402309d (d402309d)
+  on k8s.saas-linux-small-amd64.runners-manager.gitlab.com/default nezyxEJex, system ID: r_lo6rGPoZJVya
+  UUID: 019fd6c6-56c4-78a2-8961-bbb53e204387
+  feature flags: FF_USE_GIT_PROACTIVE_AUTH:true, FF_HASH_CACHE_KEYS:true, FF_MACHINE_OPTIONS_EXPAND_ENV:true, FF_DOCKER_MACHINE_JSON_OUTPUT:true
+Preparing the "docker+machine" executor
+00:19
+Using Docker executor with image semgrep/semgrep:1.179.0-nonroot ...
+Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+Authenticating with credentials from job payload (GitLab Registry)
+Pulling docker image registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d ...
+Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+Using effective pull policy of [always] for container semgrep/semgrep:1.179.0-nonroot
+Pulling docker image semgrep/semgrep:1.179.0-nonroot ...
+Using docker image sha256:504991f88410d528de333238de4407ee7718eb072d283f02d9f55ec7fc032cd2 for semgrep/semgrep:1.179.0-nonroot with digest semgrep/semgrep@sha256:7d92d5b5515a6df82c645124629d989f697400d1b05aaac22805cbc09cb4b391 ...
+Preparing environment
+00:03
+Using helper image:  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d  (overridden, default would be  registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-v19.5.0 )
+Using effective pull policy of [always] for container registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d
+Using docker image sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67 for registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper:x86_64-d402309d with digest registry.gitlab.com/gitlab-org/gitlab-runner/gitlab-runner-helper@sha256:9006bfeca9f1ea00cb9708672415d59b6432818c34c803d313a7cca37d1f7d4a ...
+Using effective pull policy of [always] for container sha256:4dbf27b3061321c0b97e18309d6daf33f0a49a7dbf16df16d820a598bb3d3f67
+Running on runner-nezyxejex-project-87144038-concurrent-0 via runner-nezyxejex-s-l-s-amd64-1791205045-d66d58d9...
+Getting source from Git repository
+00:04
+Gitaly correlation ID: c1f7fa45eae34d418f4786ea16ed95f7
+Fetching changes with git depth set to 20...
+Initialized empty Git repository in /builds/S-Rif/portfolio-hub/.git/
+Created fresh repository.
+Checking out 62764741 as detached HEAD (ref is sprint/labs)...
+Skipping Git submodules setup
+$ git remote set-url origin "${CI_REPOSITORY_URL}" || echo 'Not a git repository; skipping'
+Downloading artifacts
+00:01
+Downloading artifacts for gitleaks (16938515154)...
+Direct download from storage.googleapis.com         correlation_id=c9742585a04f4b67bfae8ca3c5efa8a8 id=16938515154 status=302 token=74_tBi-br
+Downloading artifacts from coordinator... ok        correlation_id=c9742585a04f4b67bfae8ca3c5efa8a8 id=16938515154 status=302 token=74_tBi-br
+Executing "step_script" stage of the job script
+00:03
+Using effective pull policy of [always] for container semgrep/semgrep:1.179.0-nonroot
+Using docker image sha256:504991f88410d528de333238de4407ee7718eb072d283f02d9f55ec7fc032cd2 for semgrep/semgrep:1.179.0-nonroot with digest semgrep/semgrep@sha256:7d92d5b5515a6df82c645124629d989f697400d1b05aaac22805cbc09cb4b391 ...
+$ semgrep scan --config p/python --error --metrics=off "$APP_DIR"
+
+
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 3 files tracked by git with 151 Code rules:
+  Scanning 1 file with 151 python rules.
+
+
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+
+    labs/01-devsecops/app/app.py
+   ❯❯❱ python.lang.security.deserialization.avoid-pyyaml-load.avoid-pyyaml-load
+          ❰❰ Blocking ❱❱
+          Detected a possible YAML deserialization vulnerability. `yaml.unsafe_load`, `yaml.Loader`,
+          `yaml.CLoader`, and `yaml.UnsafeLoader` are all known to be unsafe methods of deserializing YAML. An
+          attacker with control over the YAML input could create special YAML input that allows the attacker
+          to run arbitrary Python code. This would allow the attacker to steal files, download and install
+          malware, or otherwise take over the machine. Use `yaml.safe_load` or `yaml.SafeLoader` instead.
+          Details: https://sg.run/we9Y
+
+           ▶▶┆ Autofix ▶ yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)
+            7┆ CONFIG = yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)  # défaut volontaire
+               (Semgrep)
+
+
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 151
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 151 rules on 1 file: 1 finding.
+Cleaning up project directory and file based variables
+00:00
+ERROR: Job failed: exit code 1
