@@ -1,0 +1,132 @@
+# Règle de région SITE_INTL : plans Terraform locaux (terraform 1.16.4, fournisseur interne terraform_data, aucune ressource cloud), 2026-10-06
+# Les régions sont lues dans docs/referentiel/valeurs.env ; attendu : codes de retour 0 0 1 0 1
+
+## cas 1 : cloud=azure site_intl=aucun region=francecentral
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # terraform_data.site_virtuel will be created
+  + resource "terraform_data" "site_virtuel" {
+      + id     = (known after apply)
+      + input  = {
+          + cloud     = "azure"
+          + region    = "francecentral"
+          + site_intl = "aucun"
+        }
+      + output = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + region_retenue = "francecentral"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+# code retour : 0
+
+## cas 2 : cloud=azure site_intl=es region=spaincentral
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # terraform_data.site_virtuel will be created
+  + resource "terraform_data" "site_virtuel" {
+      + id     = (known after apply)
+      + input  = {
+          + cloud     = "azure"
+          + region    = "spaincentral"
+          + site_intl = "es"
+        }
+      + output = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + region_retenue = "spaincentral"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+# code retour : 0
+
+## cas 3 : cloud=azure site_intl=es region=francecentral
+
+Changes to Outputs:
+  + region_retenue = "francecentral"
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+
+Error: Resource precondition failed
+
+  on main.tf line 38, in resource "terraform_data" "site_virtuel":
+  38:       condition     = contains(local.regions_site, var.region)
+    ├────────────────
+    │ local.regions_site is list of string with 1 element
+    │ var.region is "francecentral"
+
+Région francecentral refusée pour azure avec SITE_INTL=es. Régions autorisées
+: spaincentral.
+# code retour : 1
+
+## cas 4 : cloud=aws site_intl=es region=eu-south-2
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # terraform_data.site_virtuel will be created
+  + resource "terraform_data" "site_virtuel" {
+      + id     = (known after apply)
+      + input  = {
+          + cloud     = "aws"
+          + region    = "eu-south-2"
+          + site_intl = "es"
+        }
+      + output = (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + region_retenue = "eu-south-2"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
+# code retour : 0
+
+## cas 5 : cloud=aws site_intl=aucun region=eu-south-2
+
+Changes to Outputs:
+  + region_retenue = "eu-south-2"
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+
+Error: Resource precondition failed
+
+  on main.tf line 38, in resource "terraform_data" "site_virtuel":
+  38:       condition     = contains(local.regions_site, var.region)
+    ├────────────────
+    │ local.regions_site is list of string with 1 element
+    │ var.region is "eu-south-2"
+
+Région eu-south-2 refusée pour aws avec SITE_INTL=aucun. Régions autorisées :
+eu-west-3.
+# code retour : 1
