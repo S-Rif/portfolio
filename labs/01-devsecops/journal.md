@@ -30,7 +30,7 @@ Valeurs P utilisées, confirmées ou corrigées contre le doc 00.
 
 ## Réponse à la question de connaissance
 
-À rédiger.
+Sans --certificate-identity ni --certificate-oidc-issuer, cosign verify vérifie seulement que la signature est valide et que le certificat vient de Fulcio. Il ne vérifie pas qui a signé. Or n'importe qui peut obtenir un certificat Fulcio valide pour sa propre identité GitLab ou GitHub : un attaquant signe sa propre image et la vérification réussit quand même. En imposant l'identité (mon projet, mon fichier .gitlab-ci.yml, ma branche) et l'émetteur (gitlab.com), seule une signature produite par mon pipeline est acceptée. Ma contre-preuve le montre : avec une mauvaise identité, cosign refuse (« none of the expected identities »).
 
 ## Ce que je montrerais en entretien
 
@@ -58,4 +58,27 @@ Pipeline GitLab CI sécurisé sur `sprint/labs` : 8 jobs sur 8 verts (#291384871
 
 ### Question de connaissance
 
-Réponse à rédiger.
+Sans `--certificate-identity` ni `--certificate-oidc-issuer`, `cosign verify` vérifie seulement que la signature est valide
+et que le certificat vient de Fulcio. Il ne vérifie pas qui a signé. N'importe qui peut obtenir un certificat Fulcio valide
+pour sa propre identité GitLab ou GitHub : un attaquant signe sa propre image et la vérification réussit quand même.
+En imposant l'identité (mon projet, mon fichier `.gitlab-ci.yml`, ma branche) et l'émetteur (`gitlab.com`), seule une signature
+produite par mon pipeline est acceptée. Ma contre-preuve le montre : avec une mauvaise identité, cosign refuse
+(« none of the expected identities »).
+
+## Séance 2 · 2026-10-06
+
+### Résultats
+
+O3 validé (réserve : rouge Checkov prouvé en local, P13). O4 à O7 validés par le pipeline #2916825247 (commit 5ae0745) : `signature` dépend de `sbom`, SPDX et attestation vérifiée, identité erronée refusée, rapport Trivy en artefact. O7 : inclusion locale du gabarit, voir ADR-001.
+
+### Blocages et leçons
+
+- Logs enregistrés comme pages web : prendre le texte brut ou une capture recadrée.
+- Un script qui ouvre un fichier en écriture avant de le lire le vide : lire en mémoire, puis écrire.
+- Un bloc collé avec des espaces avant le terminateur reste en attente : coller sans indentation.
+- Gitleaks a signalé la valeur `GPG_KEY` de l'image de base dans le rapport Trivy : valeur masquée dans la copie versée.
+
+### Reste à faire
+
+- O2 : workflow GitHub `devsecops` (étape 01-8, P10) et workflow réutilisable.
+- O8 : règle `SITE_INTL`.

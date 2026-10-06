@@ -20,6 +20,9 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 | P9b | Pipeline rouge, stages suivants non lancés | `L01-P9b-pipeline-rouge-2026-10-06.png` | O1 | ec802c9 |
 | P9c | Rapport gitleaks de la CI, adresse masquée | `L01-P9c-rapport-gitleaks-ci-2026-10-06.json` | O1 | d8afed3 |
 | P13 | Rejeu local des scanners avant (1b326ba) et après correction | `L01-P13-scans-locaux-avant-apres-2026-10-06.txt` | O3 | 23f1f5b |
+| P14 | Rapport Trivy JSON de l'image, digest scanné, aucun HIGH ni CRITICAL corrigeable (pipeline #2916825247) | `L01-P14-trivy-image-rapport-2026-10-06.json` | O4 | 4014e8a |
+| P15 | Extrait du SPDX de l'image ; le fichier complet est l'artefact du pipeline, expiré après 30 jours | `L01-P15-sbom-spdx-extrait-2026-10-06.json` | O5 | 4014e8a |
+| P16 | Journal du job signature : signature, vérification, attestation SPDX vérifiée, identité erronée refusée (digest c5634ab3) | `L01-P16-signature-attestation-contrepreuve-2026-10-06.txt` | O5, O6 | 4014e8a |
 
 ## Preuves non obtenues
 
@@ -34,3 +37,5 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 - Le commit `20ed416` contenait un faux P8 (message d'erreur), remplacé par `307b094`.
 - Le message de `28f6d9d` annonce P9 mais ne contient que le changement de mode du SBOM.
 - Le message de `0f42cea` annonce P1, P5, P6 et P9c mais ne contient que P4.
+- Le pipeline #2916825247 (commit 5ae0745) ajoute SPDX, attestation et contre-preuve d'identité ; `signature` dépend désormais de `sbom` (BLO-E corrigé ; la cause exacte sur #2913784605 reste une déduction).
+- P14 : les valeurs `GPG_KEY` de l'image de base (empreinte publique d'une clé de signature) sont masquées dans la copie versée, faux positif de gitleaks sur le rapport Trivy.
