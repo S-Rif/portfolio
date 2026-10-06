@@ -39,3 +39,4 @@ Séance du 2026-10-05 au 2026-10-06, branche `sprint/labs`. Image de référence
 - Le message de `0f42cea` annonce P1, P5, P6 et P9c mais ne contient que P4.
 - Le pipeline #2916825247 (commit 5ae0745) ajoute SPDX, attestation et contre-preuve d'identité ; `signature` dépend désormais de `sbom` (BLO-E corrigé ; la cause exacte sur #2913784605 reste une déduction).
 - P14 : les valeurs `GPG_KEY` de l'image de base (empreinte publique d'une clé de signature) sont masquées dans la copie versée, faux positif de gitleaks sur le rapport Trivy.
+- Adresses e-mail de tiers (mainteneurs de paquets) masquées dans la copie versée de : P14, P7 (règle du dépôt : aucune adresse e-mail).

@@ -76,7 +76,7 @@
         },
         {
           "created": "2026-10-06T02:04:40.79415506Z",
-          "created_by": "RUN /bin/sh -c set -eux; \t\tsavedAptMark=\"$(apt-mark showmanual)\"; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tdpkg-dev \t\tg++ \t\tgcc \t\tgnupg \t\tlibbluetooth-dev \t\tlibbz2-dev \t\tlibc6-dev \t\tlibdb-dev \t\tlibffi-dev \t\tlibgdbm-dev \t\tliblzma-dev \t\tlibncursesw5-dev \t\tlibreadline-dev \t\tlibsqlite3-dev \t\tlibssl-dev \t\tmake \t\ttk-dev \t\tuuid-dev \t\twget \t\txz-utils \t\tzlib1g-dev \t; \t\twget -O python.tar.xz \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\"; \techo \"$PYTHON_SHA256 *python.tar.xz\" | sha256sum -c -; \twget -O python.tar.xz.asc \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\"; \tGNUPGHOME=\"$(mktemp -d)\"; export GNUPGHOME; \tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$GPG_KEY\"; \tgpg --batch --verify python.tar.xz.asc python.tar.xz; \tgpgconf --kill all; \trm -rf \"$GNUPGHOME\" python.tar.xz.asc; \tmkdir -p /usr/src/python; \ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \trm python.tar.xz; \t\tcd /usr/src/python; \tgnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; \t./configure \t\t--build=\"$gnuArch\" \t\t--enable-loadable-sqlite-extensions \t\t--enable-optimizations \t\t--enable-option-checking=fatal \t\t--enable-shared \t\t$(test \"${gnuArch%%-*}\" != 'riscv64' \u0026\u0026 echo '--with-lto') \t\t--with-ensurepip \t; \tnproc=\"$(nproc)\"; \tEXTRA_CFLAGS=\"$(dpkg-buildflags --get CFLAGS)\"; \tLDFLAGS=\"$(dpkg-buildflags --get LDFLAGS)\"; \tLDFLAGS=\"${LDFLAGS:-} -Wl,--strip-all\"; \tarch=\"$(dpkg --print-architecture)\"; arch=\"${arch##*-}\"; \tcase \"$arch\" in \t\tamd64|arm64) \t\t\tEXTRA_CFLAGS=\"${EXTRA_CFLAGS:-} -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer\"; \t\t\t;; \t\ti386) \t\t\t;; \t\t*) \t\t\tEXTRA_CFLAGS=\"${EXTRA_CFLAGS:-} -fno-omit-frame-pointer\"; \t\t\t;; \tesac; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-}\" \t; \trm python; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-} -Wl,-rpath='\\$\\$ORIGIN/../lib'\" \t\tpython \t; \tmake install; \t\tcd /; \trm -rf /usr/src/python; \t\tfind /usr/local -depth \t\t\\( \t\t\t\\( -type d -a \\( -name test -o -name tests -o -name idle_test \\) \\) \t\t\t-o \\( -type f -a \\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\) \\) \t\t\\) -exec rm -rf '{}' + \t; \t\tldconfig; \t\tapt-mark auto '.*' \u003e /dev/null; \tapt-mark manual $savedAptMark; \tfind /usr/local -type f -executable -not \\( -name '*tkinter*' \\) -exec ldd '{}' ';' \t\t| awk '/=\u003e/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%s\\n\", so }' \t\t| sort -u \t\t| xargs -rt dpkg-query --search \t\t| awk 'sub(\":$\", \"\", $1) { print $1 }' \t\t| sort -u \t\t| xargs -r apt-mark manual \t; \tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \tapt-get dist-clean; \t\texport PYTHONDONTWRITEBYTECODE=1; \tpython3 --version; \tpip3 --version # buildkit",
+          "created_by": "RUN /bin/sh -c set -eux; \t\tsavedAptMark=\"$(apt-mark showmanual)\"; \tapt-get update; \tapt-get install -y --no-install-recommends \t\tdpkg-dev \t\tg++ \t\tgcc \t\tgnupg \t\tlibbluetooth-dev \t\tlibbz2-dev \t\tlibc6-dev \t\tlibdb-dev \t\tlibffi-dev \t\tlibgdbm-dev \t\tliblzma-dev \t\tlibncursesw5-dev \t\tlibreadline-dev \t\tlibsqlite3-dev \t\tlibssl-dev \t\tmake \t\ttk-dev \t\tuuid-dev \t\twget \t\txz-utils \t\tzlib1g-dev \t; \t\twget -O python.tar.xz \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\"; \techo \"$PYTHON_SHA256 *python.tar.xz\" | sha256sum -c -; \twget -O python.tar.xz.asc \"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\"; \tGNUPGHOME=\"$(mktemp -d)\"; export GNUPGHOME; \tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \"$GPG_KEY\"; \tgpg --batch --verify python.tar.xz.asc python.tar.xz; \tgpgconf --kill all; \trm -rf \"$GNUPGHOME\" python.tar.xz.asc; \tmkdir -p /usr/src/python; \ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \trm python.tar.xz; \t\tcd /usr/src/python; \tgnuArch=\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\"; \t./configure \t\t--build=\"$gnuArch\" \t\t--enable-loadable-sqlite-extensions \t\t--enable-optimizations \t\t--enable-option-checking=fatal \t\t--enable-shared \t\t$(test \"${gnuArch%%-*}\" != 'riscv64' && echo '--with-lto') \t\t--with-ensurepip \t; \tnproc=\"$(nproc)\"; \tEXTRA_CFLAGS=\"$(dpkg-buildflags --get CFLAGS)\"; \tLDFLAGS=\"$(dpkg-buildflags --get LDFLAGS)\"; \tLDFLAGS=\"${LDFLAGS:-} -Wl,--strip-all\"; \tarch=\"$(dpkg --print-architecture)\"; arch=\"${arch##*-}\"; \tcase \"$arch\" in \t\tamd64|arm64) \t\t\tEXTRA_CFLAGS=\"${EXTRA_CFLAGS:-} -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer\"; \t\t\t;; \t\ti386) \t\t\t;; \t\t*) \t\t\tEXTRA_CFLAGS=\"${EXTRA_CFLAGS:-} -fno-omit-frame-pointer\"; \t\t\t;; \tesac; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-}\" \t; \trm python; \tmake -j \"$nproc\" \t\t\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\" \t\t\"LDFLAGS=${LDFLAGS:-} -Wl,-rpath='\\$\\$ORIGIN/../lib'\" \t\tpython \t; \tmake install; \t\tcd /; \trm -rf /usr/src/python; \t\tfind /usr/local -depth \t\t\\( \t\t\t\\( -type d -a \\( -name test -o -name tests -o -name idle_test \\) \\) \t\t\t-o \\( -type f -a \\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\) \\) \t\t\\) -exec rm -rf '{}' + \t; \t\tldconfig; \t\tapt-mark auto '.*' > /dev/null; \tapt-mark manual $savedAptMark; \tfind /usr/local -type f -executable -not \\( -name '*tkinter*' \\) -exec ldd '{}' ';' \t\t| awk '/=>/ { so = $(NF-1); if (index(so, \"/usr/local/\") == 1) { next }; gsub(\"^/(usr/)?\", \"\", so); printf \"*%s\\n\", so }' \t\t| sort -u \t\t| xargs -rt dpkg-query --search \t\t| awk 'sub(\":$\", \"\", $1) { print $1 }' \t\t| sort -u \t\t| xargs -r apt-mark manual \t; \tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \tapt-get dist-clean; \t\texport PYTHONDONTWRITEBYTECODE=1; \tpython3 --version; \tpip3 --version # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
@@ -97,7 +97,7 @@
         },
         {
           "created": "2026-10-06T08:32:05.263999332Z",
-          "created_by": "RUN /bin/sh -c apt-get update  \u0026\u0026 apt-get install -y --only-upgrade libpcre2-8-0  \u0026\u0026 rm -rf /var/lib/apt/lists/* # buildkit",
+          "created_by": "RUN /bin/sh -c apt-get update  && apt-get install -y --only-upgrade libpcre2-8-0  && rm -rf /var/lib/apt/lists/* # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
@@ -107,7 +107,7 @@
         },
         {
           "created": "2026-10-06T08:32:07.322693511Z",
-          "created_by": "RUN /bin/sh -c pip install --no-cache-dir -r requirements.txt  \u0026\u0026 useradd --system --no-create-home --uid 10001 appuser # buildkit",
+          "created_by": "RUN /bin/sh -c pip install --no-cache-dir -r requirements.txt  && useradd --system --no-create-home --uid 10001 appuser # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
@@ -129,7 +129,7 @@
         },
         {
           "created": "2026-10-06T08:32:07.366175788Z",
-          "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"python\" \"-c\" \"import urllib.request as u; u.urlopen('http://127.0.0.1:8080/', timeout=2)\"] \"30s\" \"3s\" \"0s\" \"0s\" '\\x03'}",
+          "created_by": "HEALTHCHECK &{[\"CMD\" \"python\" \"-c\" \"import urllib.request as u; u.urlopen('http://127.0.0.1:8080/', timeout=2)\"] \"30s\" \"3s\" \"0s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
@@ -244,7 +244,7 @@
           "ID": "adduser@3.152",
           "Name": "adduser",
           "Identifier": {
-            "PURL": "pkg:deb/debian/adduser@3.152?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/adduser@3.152?arch=all&distro=debian-13.7",
             "UID": "681428a4291e51"
           },
           "Version": "3.152",
@@ -255,7 +255,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian Adduser Developers \u003cadduser@packages.debian.org\u003e",
+          "Maintainer": "Debian Adduser Developers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -331,7 +331,7 @@
           "ID": "apt@3.0.3",
           "Name": "apt",
           "Identifier": {
-            "PURL": "pkg:deb/debian/apt@3.0.3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/apt@3.0.3?arch=amd64&distro=debian-13.7",
             "UID": "18dd1ec95ee04059"
           },
           "Version": "3.0.3",
@@ -345,7 +345,7 @@
             "MIT",
             "GPL-2.0-only"
           ],
-          "Maintainer": "APT Development Team \u003cdeity@lists.debian.org\u003e",
+          "Maintainer": "APT Development Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -555,7 +555,7 @@
           "ID": "base-files@13.8+deb13u7",
           "Name": "base-files",
           "Identifier": {
-            "PURL": "pkg:deb/debian/base-files@13.8%2Bdeb13u7?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/base-files@13.8%2Bdeb13u7?arch=amd64&distro=debian-13.7",
             "UID": "76560355df616e3e"
           },
           "Version": "13.8+deb13u7",
@@ -567,7 +567,7 @@
             "GPL-2.0-only",
             "verbatim"
           ],
-          "Maintainer": "Santiago Vila \u003csanvila@debian.org\u003e",
+          "Maintainer": "Santiago Vila <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -621,7 +621,7 @@
           "ID": "base-passwd@3.6.7",
           "Name": "base-passwd",
           "Identifier": {
-            "PURL": "pkg:deb/debian/base-passwd@3.6.7?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/base-passwd@3.6.7?arch=amd64&distro=debian-13.7",
             "UID": "1cd3add99b3d2533"
           },
           "Version": "3.6.7",
@@ -632,7 +632,7 @@
             "GPL-2.0-only",
             "public-domain"
           ],
-          "Maintainer": "Shadow package maintainers \u003cpkg-shadow-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Shadow package maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -671,7 +671,7 @@
           "ID": "bash@5.2.37-2+b10",
           "Name": "bash",
           "Identifier": {
-            "PURL": "pkg:deb/debian/bash@5.2.37-2%2Bb10?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/bash@5.2.37-2%2Bb10?arch=amd64&distro=debian-13.7",
             "UID": "2e2ffb74d0d3e1ed"
           },
           "Version": "5.2.37",
@@ -693,7 +693,7 @@
             "MIT",
             "permissive"
           ],
-          "Maintainer": "Matthias Klose \u003cdoko@debian.org\u003e",
+          "Maintainer": "Matthias Klose <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -778,7 +778,7 @@
           "ID": "bsdutils@1:2.41.5-0+deb13u1",
           "Name": "bsdutils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/bsdutils@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/bsdutils@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "a4b47561565a3535"
           },
           "Version": "2.41.5",
@@ -807,7 +807,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -846,7 +846,7 @@
           "ID": "ca-certificates@20250419",
           "Name": "ca-certificates",
           "Identifier": {
-            "PURL": "pkg:deb/debian/ca-certificates@20250419?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/ca-certificates@20250419?arch=all&distro=debian-13.7",
             "UID": "4f643da9ec9da7b1"
           },
           "Version": "20250419",
@@ -858,7 +858,7 @@
             "GPL-2.0-only",
             "MPL-2.0"
           ],
-          "Maintainer": "Julien Cristau \u003cjcristau@debian.org\u003e",
+          "Maintainer": "Julien Cristau <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1045,7 +1045,7 @@
           "ID": "coreutils@9.7-3",
           "Name": "coreutils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/coreutils@9.7-3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/coreutils@9.7-3?arch=amd64&distro=debian-13.7",
             "UID": "cb4a55f50bda2393"
           },
           "Version": "9.7",
@@ -1063,7 +1063,7 @@
             "GFDL-1.3-no-invariants-only",
             "GFDL-1.3-only"
           ],
-          "Maintainer": "Michael Stone \u003cmstone@debian.org\u003e",
+          "Maintainer": "Michael Stone <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1345,7 +1345,7 @@
           "ID": "dash@0.5.12-12",
           "Name": "dash",
           "Identifier": {
-            "PURL": "pkg:deb/debian/dash@0.5.12-12?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/dash@0.5.12-12?arch=amd64&distro=debian-13.7",
             "UID": "4990b2098a2a3724"
           },
           "Version": "0.5.12",
@@ -1360,7 +1360,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Andrej Shadura \u003candrewsh@debian.org\u003e",
+          "Maintainer": "Andrej Shadura <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1389,7 +1389,7 @@
           "ID": "debconf@1.5.91",
           "Name": "debconf",
           "Identifier": {
-            "PURL": "pkg:deb/debian/debconf@1.5.91?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/debconf@1.5.91?arch=all&distro=debian-13.7",
             "UID": "f7c8b7ba83ed5cfe"
           },
           "Version": "1.5.91",
@@ -1399,7 +1399,7 @@
           "Licenses": [
             "BSD-2-Clause"
           ],
-          "Maintainer": "Debconf Developers \u003cdebconf-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debconf Developers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1546,7 +1546,7 @@
           "ID": "debian-archive-keyring@2025.1",
           "Name": "debian-archive-keyring",
           "Identifier": {
-            "PURL": "pkg:deb/debian/debian-archive-keyring@2025.1?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/debian-archive-keyring@2025.1?arch=all&distro=debian-13.7",
             "UID": "a22d861380b1187c"
           },
           "Version": "2025.1",
@@ -1556,7 +1556,7 @@
           "Licenses": [
             "GPL-2.0-or-later"
           ],
-          "Maintainer": "Debian Release Team \u003cpackages@release.debian.org\u003e",
+          "Maintainer": "Debian Release Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1587,7 +1587,7 @@
           "ID": "debianutils@5.23.2",
           "Name": "debianutils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/debianutils@5.23.2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/debianutils@5.23.2?arch=amd64&distro=debian-13.7",
             "UID": "3c5d0b66afafddbb"
           },
           "Version": "5.23.2",
@@ -1600,7 +1600,7 @@
             "public-domain",
             "SMAIL-GPL"
           ],
-          "Maintainer": "Ileana Dumitrescu \u003cileanadumitrescu95@gmail.com\u003e",
+          "Maintainer": "Ileana Dumitrescu <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1686,7 +1686,7 @@
           "ID": "diffutils@1:3.10-4",
           "Name": "diffutils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/diffutils@3.10-4?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/diffutils@3.10-4?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "852f693a78aaa149"
           },
           "Version": "3.10",
@@ -1717,7 +1717,7 @@
             "GPL-2.0-only",
             "GFDL-1.3-only"
           ],
-          "Maintainer": "Santiago Vila \u003csanvila@debian.org\u003e",
+          "Maintainer": "Santiago Vila <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1782,7 +1782,7 @@
           "ID": "dpkg@1.22.22",
           "Name": "dpkg",
           "Identifier": {
-            "PURL": "pkg:deb/debian/dpkg@1.22.22?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/dpkg@1.22.22?arch=amd64&distro=debian-13.7",
             "UID": "7b97f27e3bec0417"
           },
           "Version": "1.22.22",
@@ -1794,7 +1794,7 @@
             "public-domain-s-s-d",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Dpkg Developers \u003cdebian-dpkg@lists.debian.org\u003e",
+          "Maintainer": "Dpkg Developers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -1958,7 +1958,7 @@
           "ID": "findutils@4.10.0-3",
           "Name": "findutils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/findutils@4.10.0-3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/findutils@4.10.0-3?arch=amd64&distro=debian-13.7",
             "UID": "12e741692291b42a"
           },
           "Version": "4.10.0",
@@ -1991,7 +1991,7 @@
             "LGPL-2.0-only",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Andreas Metzler \u003cametzler@debian.org\u003e",
+          "Maintainer": "Andreas Metzler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2060,7 +2060,7 @@
           "ID": "gcc-14-base@14.2.0-19",
           "Name": "gcc-14-base",
           "Identifier": {
-            "PURL": "pkg:deb/debian/gcc-14-base@14.2.0-19?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/gcc-14-base@14.2.0-19?arch=amd64&distro=debian-13.7",
             "UID": "371c061d08215a1b"
           },
           "Version": "14.2.0",
@@ -2076,7 +2076,7 @@
             "Artistic-2.0",
             "LGPL-2.0-or-later"
           ],
-          "Maintainer": "Debian GCC Maintainers \u003cdebian-gcc@lists.debian.org\u003e",
+          "Maintainer": "Debian GCC Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2096,7 +2096,7 @@
           "ID": "grep@3.11-4",
           "Name": "grep",
           "Identifier": {
-            "PURL": "pkg:deb/debian/grep@3.11-4?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/grep@3.11-4?arch=amd64&distro=debian-13.7",
             "UID": "6ce8b4eed9c0d137"
           },
           "Version": "3.11",
@@ -2109,7 +2109,7 @@
             "GPL-3.0-or-later",
             "GPL-3.0-only"
           ],
-          "Maintainer": "Anibal Monsalve Salazar \u003canibal@debian.org\u003e",
+          "Maintainer": "Anibal Monsalve Salazar <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2185,7 +2185,7 @@
           "ID": "gzip@1.13-1+deb13u1",
           "Name": "gzip",
           "Identifier": {
-            "PURL": "pkg:deb/debian/gzip@1.13-1%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/gzip@1.13-1%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "75d9e6fa7aafe838"
           },
           "Version": "1.13",
@@ -2201,7 +2201,7 @@
             "GPL-3.0-only",
             "GFDL-3"
           ],
-          "Maintainer": "Milan Kupcevic \u003cmilan@debian.org\u003e",
+          "Maintainer": "Milan Kupcevic <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2245,7 +2245,7 @@
           "ID": "hostname@3.25",
           "Name": "hostname",
           "Identifier": {
-            "PURL": "pkg:deb/debian/hostname@3.25?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/hostname@3.25?arch=amd64&distro=debian-13.7",
             "UID": "641772722328aedf"
           },
           "Version": "3.25",
@@ -2255,7 +2255,7 @@
           "Licenses": [
             "GPL-2.0-only"
           ],
-          "Maintainer": "Michael Meskes \u003cmeskes@debian.org\u003e",
+          "Maintainer": "Michael Meskes <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2275,7 +2275,7 @@
           "ID": "init-system-helpers@1.69~deb13u1",
           "Name": "init-system-helpers",
           "Identifier": {
-            "PURL": "pkg:deb/debian/init-system-helpers@1.69~deb13u1?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/init-system-helpers@1.69~deb13u1?arch=all&distro=debian-13.7",
             "UID": "cb52819ec2f1a236"
           },
           "Version": "1.69~deb13u1",
@@ -2287,7 +2287,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian systemd Maintainers \u003cpkg-systemd-maintainers@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian systemd Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2319,7 +2319,7 @@
           "ID": "libacl1@2.3.2-2+b1",
           "Name": "libacl1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libacl1@2.3.2-2%2Bb1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libacl1@2.3.2-2%2Bb1?arch=amd64&distro=debian-13.7",
             "UID": "cc40ccea052c10a8"
           },
           "Version": "2.3.2",
@@ -2334,7 +2334,7 @@
             "LGPL-2.0-or-later",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Guillem Jover \u003cguillem@debian.org\u003e",
+          "Maintainer": "Guillem Jover <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2359,7 +2359,7 @@
           "ID": "libapt-pkg7.0@3.0.3",
           "Name": "libapt-pkg7.0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libapt-pkg7.0@3.0.3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libapt-pkg7.0@3.0.3?arch=amd64&distro=debian-13.7",
             "UID": "77d5eef4d0d22db7"
           },
           "Version": "3.0.3",
@@ -2373,7 +2373,7 @@
             "MIT",
             "GPL-2.0-only"
           ],
-          "Maintainer": "APT Development Team \u003cdeity@lists.debian.org\u003e",
+          "Maintainer": "APT Development Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2450,7 +2450,7 @@
           "ID": "libattr1@1:2.5.2-3",
           "Name": "libattr1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libattr1@2.5.2-3?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/libattr1@2.5.2-3?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "d04226e5c9c60381"
           },
           "Version": "2.5.2",
@@ -2467,7 +2467,7 @@
             "LGPL-2.0-or-later",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Guillem Jover \u003cguillem@debian.org\u003e",
+          "Maintainer": "Guillem Jover <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2491,7 +2491,7 @@
           "ID": "libaudit-common@1:4.0.2-2+deb13u1",
           "Name": "libaudit-common",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libaudit-common@4.0.2-2%2Bdeb13u1?arch=all\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/libaudit-common@4.0.2-2%2Bdeb13u1?arch=all&distro=debian-13.7&epoch=1",
             "UID": "18dd5eb82cef3db0"
           },
           "Version": "4.0.2",
@@ -2507,7 +2507,7 @@
             "LGPL-2.1-only",
             "GPL-1.0-only"
           ],
-          "Maintainer": "Laurent Bigonville \u003cbigon@debian.org\u003e",
+          "Maintainer": "Laurent Bigonville <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2527,7 +2527,7 @@
           "ID": "libaudit1@1:4.0.2-2+deb13u1",
           "Name": "libaudit1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libaudit1@4.0.2-2%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/libaudit1@4.0.2-2%2Bdeb13u1?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "f2916f6572e51444"
           },
           "Version": "4.0.2",
@@ -2543,7 +2543,7 @@
             "LGPL-2.1-only",
             "GPL-1.0-only"
           ],
-          "Maintainer": "Laurent Bigonville \u003cbigon@debian.org\u003e",
+          "Maintainer": "Laurent Bigonville <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2568,7 +2568,7 @@
           "ID": "libblkid1@2.41.5-0+deb13u1",
           "Name": "libblkid1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libblkid1@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libblkid1@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "e20c3ed37f6020d7"
           },
           "Version": "2.41.5",
@@ -2596,7 +2596,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2621,7 +2621,7 @@
           "ID": "libbsd0@0.12.2-2",
           "Name": "libbsd0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libbsd0@0.12.2-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libbsd0@0.12.2-2?arch=amd64&distro=debian-13.7",
             "UID": "1de87442fee280ff"
           },
           "Version": "0.12.2",
@@ -2646,7 +2646,7 @@
             "public-domain",
             "Beerware"
           ],
-          "Maintainer": "Guillem Jover \u003cguillem@debian.org\u003e",
+          "Maintainer": "Guillem Jover <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2671,7 +2671,7 @@
           "ID": "libbz2-1.0@1.0.8-6",
           "Name": "libbz2-1.0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libbz2-1.0@1.0.8-6?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libbz2-1.0@1.0.8-6?arch=amd64&distro=debian-13.7",
             "UID": "3589bfcff9e95a4f"
           },
           "Version": "1.0.8",
@@ -2684,7 +2684,7 @@
             "BSD-3-Clause",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Anibal Monsalve Salazar \u003canibal@debian.org\u003e",
+          "Maintainer": "Anibal Monsalve Salazar <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2707,7 +2707,7 @@
           "ID": "libc-bin@2.41-12+deb13u4",
           "Name": "libc-bin",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libc-bin@2.41-12%2Bdeb13u4?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libc-bin@2.41-12%2Bdeb13u4?arch=amd64&distro=debian-13.7",
             "UID": "5ccd64afecf0b4d0"
           },
           "Version": "2.41",
@@ -2750,7 +2750,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "GNU Libc Maintainers \u003cdebian-glibc@lists.debian.org\u003e",
+          "Maintainer": "GNU Libc Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -2800,7 +2800,7 @@
           "ID": "libc6@2.41-12+deb13u4",
           "Name": "libc6",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libc6@2.41-12%2Bdeb13u4?arch=amd64&distro=debian-13.7",
             "UID": "ff8541d1996042ee"
           },
           "Version": "2.41",
@@ -2843,7 +2843,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "GNU Libc Maintainers \u003cdebian-glibc@lists.debian.org\u003e",
+          "Maintainer": "GNU Libc Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3146,7 +3146,7 @@
           "ID": "libcap-ng0@0.8.5-4+b1",
           "Name": "libcap-ng0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libcap-ng0@0.8.5-4%2Bb1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libcap-ng0@0.8.5-4%2Bb1?arch=amd64&distro=debian-13.7",
             "UID": "6ebeba515cbfa716"
           },
           "Version": "0.8.5",
@@ -3162,7 +3162,7 @@
             "LGPL-2.1-only",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Håvard F. Aasen \u003chavard.f.aasen@pfft.no\u003e",
+          "Maintainer": "Håvard F. Aasen <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3187,7 +3187,7 @@
           "ID": "libcap2@1:2.75-10+deb13u1+b3",
           "Name": "libcap2",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libcap2@2.75-10%2Bdeb13u1%2Bb3?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/libcap2@2.75-10%2Bdeb13u1%2Bb3?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "32401c9c22a36a0d"
           },
           "Version": "2.75",
@@ -3203,7 +3203,7 @@
             "GPL-2.0-only",
             "GPL-2.0-or-later"
           ],
-          "Maintainer": "Christian Kastner \u003cckk@debian.org\u003e",
+          "Maintainer": "Christian Kastner <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3228,7 +3228,7 @@
           "ID": "libcrypt1@1:4.4.38-1",
           "Name": "libcrypt1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libcrypt1@4.4.38-1?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/libcrypt1@4.4.38-1?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "bcf9a53d19864571"
           },
           "Version": "4.4.38",
@@ -3239,7 +3239,7 @@
           "SrcVersion": "4.4.38",
           "SrcRelease": "1",
           "SrcEpoch": 1,
-          "Maintainer": "Marco d'Itri \u003cmd@linux.it\u003e",
+          "Maintainer": "Marco d'Itri <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3262,7 +3262,7 @@
           "ID": "libdb5.3t64@5.3.28+dfsg2-9",
           "Name": "libdb5.3t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libdb5.3t64@5.3.28%2Bdfsg2-9?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libdb5.3t64@5.3.28%2Bdfsg2-9?arch=amd64&distro=debian-13.7",
             "UID": "6644476cfc0a6297"
           },
           "Version": "5.3.28+dfsg2",
@@ -3284,7 +3284,7 @@
             "GPL-3.0-only",
             "Zlib"
           ],
-          "Maintainer": "Debian QA Group \u003cpackages@qa.debian.org\u003e",
+          "Maintainer": "Debian QA Group <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3308,7 +3308,7 @@
           "ID": "libdebconfclient0@0.280",
           "Name": "libdebconfclient0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libdebconfclient0@0.280?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libdebconfclient0@0.280?arch=amd64&distro=debian-13.7",
             "UID": "cd0c9dc2c6921f31"
           },
           "Version": "0.280",
@@ -3320,7 +3320,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian Install System Team \u003cdebian-boot@lists.debian.org\u003e",
+          "Maintainer": "Debian Install System Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3342,7 +3342,7 @@
           "ID": "libffi8@3.4.8-2",
           "Name": "libffi8",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libffi8@3.4.8-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libffi8@3.4.8-2?arch=amd64&distro=debian-13.7",
             "UID": "24bf3484c83a3dcf"
           },
           "Version": "3.4.8",
@@ -3360,7 +3360,7 @@
             "LGPL-2.1-or-later",
             "public-domain"
           ],
-          "Maintainer": "Debian GCC Maintainers \u003cdebian-gcc@lists.debian.org\u003e",
+          "Maintainer": "Debian GCC Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3382,7 +3382,7 @@
           "ID": "libgcc-s1@14.2.0-19",
           "Name": "libgcc-s1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libgcc-s1@14.2.0-19?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libgcc-s1@14.2.0-19?arch=amd64&distro=debian-13.7",
             "UID": "5f801be708edc088"
           },
           "Version": "14.2.0",
@@ -3391,7 +3391,7 @@
           "SrcName": "gcc-14",
           "SrcVersion": "14.2.0",
           "SrcRelease": "19",
-          "Maintainer": "Debian GCC Maintainers \u003cdebian-gcc@lists.debian.org\u003e",
+          "Maintainer": "Debian GCC Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3413,7 +3413,7 @@
           "ID": "libgdbm6t64@1.24-2",
           "Name": "libgdbm6t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libgdbm6t64@1.24-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libgdbm6t64@1.24-2?arch=amd64&distro=debian-13.7",
             "UID": "2ad91c6517a1c639"
           },
           "Version": "1.24",
@@ -3429,7 +3429,7 @@
             "GPL-3.0-only",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Nicolas Mora \u003cbabelouest@debian.org\u003e",
+          "Maintainer": "Nicolas Mora <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3453,7 +3453,7 @@
           "ID": "libgmp10@2:6.3.0+dfsg-3",
           "Name": "libgmp10",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libgmp10@6.3.0%2Bdfsg-3?arch=amd64\u0026distro=debian-13.7\u0026epoch=2",
+            "PURL": "pkg:deb/debian/libgmp10@6.3.0%2Bdfsg-3?arch=amd64&distro=debian-13.7&epoch=2",
             "UID": "472e354773202f0f"
           },
           "Version": "6.3.0+dfsg",
@@ -3473,7 +3473,7 @@
             "GPL-3.0-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Debian Science Maintainers \u003cdebian-science-maintainers@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian Science Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3497,7 +3497,7 @@
           "ID": "libhogweed6t64@3.10.1-1",
           "Name": "libhogweed6t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libhogweed6t64@3.10.1-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libhogweed6t64@3.10.1-1?arch=amd64&distro=debian-13.7",
             "UID": "2df7ce16a99c5e01"
           },
           "Version": "3.10.1",
@@ -3517,7 +3517,7 @@
             "GPL-2.0-only",
             "GAP"
           ],
-          "Maintainer": "Magnus Holmgren \u003cholmgren@debian.org\u003e",
+          "Maintainer": "Magnus Holmgren <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3543,7 +3543,7 @@
           "ID": "liblastlog2-2@2.41.5-0+deb13u1",
           "Name": "liblastlog2-2",
           "Identifier": {
-            "PURL": "pkg:deb/debian/liblastlog2-2@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/liblastlog2-2@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "481f2fda004b182b"
           },
           "Version": "2.41.5",
@@ -3571,7 +3571,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3596,7 +3596,7 @@
           "ID": "liblz4-1@1.10.0-4",
           "Name": "liblz4-1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/liblz4-1@1.10.0-4?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/liblz4-1@1.10.0-4?arch=amd64&distro=debian-13.7",
             "UID": "dcc7de8e33942d8c"
           },
           "Version": "1.10.0",
@@ -3610,7 +3610,7 @@
             "BSD-2-Clause",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Nobuhiro Iwamatsu \u003ciwamatsu@debian.org\u003e",
+          "Maintainer": "Nobuhiro Iwamatsu <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3633,7 +3633,7 @@
           "ID": "liblzma5@5.8.1-1+deb13u1",
           "Name": "liblzma5",
           "Identifier": {
-            "PURL": "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/liblzma5@5.8.1-1%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "9a7ed5b23f87efec"
           },
           "Version": "5.8.1",
@@ -3658,7 +3658,7 @@
             "GPL-2.0-only",
             "GPL-3.0-only"
           ],
-          "Maintainer": "Sebastian Andrzej Siewior \u003csebastian@breakpoint.cc\u003e",
+          "Maintainer": "Sebastian Andrzej Siewior <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3684,7 +3684,7 @@
           "ID": "libmd0@1.1.0-2+b1",
           "Name": "libmd0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libmd0@1.1.0-2%2Bb1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libmd0@1.1.0-2%2Bb1?arch=amd64&distro=debian-13.7",
             "UID": "6f55e5e0a3458581"
           },
           "Version": "1.1.0",
@@ -3704,7 +3704,7 @@
             "public-domain-md5",
             "public-domain-sha1"
           ],
-          "Maintainer": "Guillem Jover \u003cguillem@debian.org\u003e",
+          "Maintainer": "Guillem Jover <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3728,7 +3728,7 @@
           "ID": "libmount1@2.41.5-0+deb13u1",
           "Name": "libmount1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libmount1@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libmount1@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "d0bfdcf72ddff375"
           },
           "Version": "2.41.5",
@@ -3756,7 +3756,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3783,7 +3783,7 @@
           "ID": "libncursesw6@6.5+20250216-2",
           "Name": "libncursesw6",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libncursesw6@6.5%2B20250216-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libncursesw6@6.5%2B20250216-2?arch=amd64&distro=debian-13.7",
             "UID": "cec9170d6f23b2e9"
           },
           "Version": "6.5+20250216",
@@ -3792,7 +3792,7 @@
           "SrcName": "ncurses",
           "SrcVersion": "6.5+20250216",
           "SrcRelease": "2",
-          "Maintainer": "Ncurses Maintainers \u003cncurses@packages.debian.org\u003e",
+          "Maintainer": "Ncurses Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3816,7 +3816,7 @@
           "ID": "libnettle8t64@3.10.1-1",
           "Name": "libnettle8t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libnettle8t64@3.10.1-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libnettle8t64@3.10.1-1?arch=amd64&distro=debian-13.7",
             "UID": "bbd391fef91ccd16"
           },
           "Version": "3.10.1",
@@ -3836,7 +3836,7 @@
             "GPL-2.0-only",
             "GAP"
           ],
-          "Maintainer": "Magnus Holmgren \u003cholmgren@debian.org\u003e",
+          "Maintainer": "Magnus Holmgren <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3862,7 +3862,7 @@
           "ID": "libpam-modules@1.7.0-5",
           "Name": "libpam-modules",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libpam-modules@1.7.0-5?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libpam-modules@1.7.0-5?arch=amd64&distro=debian-13.7",
             "UID": "274a704398461ef0"
           },
           "Version": "1.7.0",
@@ -3884,7 +3884,7 @@
             "public-domain",
             "Beerware"
           ],
-          "Maintainer": "Sam Hartman \u003chartmans@debian.org\u003e",
+          "Maintainer": "Sam Hartman <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -3951,7 +3951,7 @@
           "ID": "libpam-modules-bin@1.7.0-5",
           "Name": "libpam-modules-bin",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libpam-modules-bin@1.7.0-5?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libpam-modules-bin@1.7.0-5?arch=amd64&distro=debian-13.7",
             "UID": "dbbd2b9769d4b438"
           },
           "Version": "1.7.0",
@@ -3973,7 +3973,7 @@
             "public-domain",
             "Beerware"
           ],
-          "Maintainer": "Sam Hartman \u003chartmans@debian.org\u003e",
+          "Maintainer": "Sam Hartman <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4009,7 +4009,7 @@
           "ID": "libpam-runtime@1.7.0-5",
           "Name": "libpam-runtime",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libpam-runtime@1.7.0-5?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libpam-runtime@1.7.0-5?arch=all&distro=debian-13.7",
             "UID": "1d4f3eaf1c0f9548"
           },
           "Version": "1.7.0",
@@ -4031,7 +4031,7 @@
             "public-domain",
             "Beerware"
           ],
-          "Maintainer": "Sam Hartman \u003chartmans@debian.org\u003e",
+          "Maintainer": "Sam Hartman <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4214,7 +4214,7 @@
           "ID": "libpam0g@1.7.0-5",
           "Name": "libpam0g",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libpam0g@1.7.0-5?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libpam0g@1.7.0-5?arch=amd64&distro=debian-13.7",
             "UID": "ea209b4d4ec86f20"
           },
           "Version": "1.7.0",
@@ -4236,7 +4236,7 @@
             "public-domain",
             "Beerware"
           ],
-          "Maintainer": "Sam Hartman \u003chartmans@debian.org\u003e",
+          "Maintainer": "Sam Hartman <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4268,7 +4268,7 @@
           "ID": "libpcre2-8-0@10.46-1~deb13u3",
           "Name": "libpcre2-8-0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libpcre2-8-0@10.46-1~deb13u3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libpcre2-8-0@10.46-1~deb13u3?arch=amd64&distro=debian-13.7",
             "UID": "738ebb122347d802"
           },
           "Version": "10.46",
@@ -4284,7 +4284,7 @@
             "BSD-2-Clause",
             "public-domain"
           ],
-          "Maintainer": "Matthew Vernon \u003cmatthew@debian.org\u003e",
+          "Maintainer": "Matthew Vernon <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4308,7 +4308,7 @@
           "ID": "libreadline8t64@8.2-6",
           "Name": "libreadline8t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libreadline8t64@8.2-6?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libreadline8t64@8.2-6?arch=amd64&distro=debian-13.7",
             "UID": "798c8448c7673b99"
           },
           "Version": "8.2",
@@ -4326,7 +4326,7 @@
             "GFDL-1.3-or-later",
             "ISC-no-attribution"
           ],
-          "Maintainer": "Matthias Klose \u003cdoko@debian.org\u003e",
+          "Maintainer": "Matthias Klose <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4356,7 +4356,7 @@
           "ID": "libseccomp2@2.6.0-2",
           "Name": "libseccomp2",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libseccomp2@2.6.0-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libseccomp2@2.6.0-2?arch=amd64&distro=debian-13.7",
             "UID": "2af8140f63038666"
           },
           "Version": "2.6.0",
@@ -4368,7 +4368,7 @@
           "Licenses": [
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Kees Cook \u003ckees@debian.org\u003e",
+          "Maintainer": "Kees Cook <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4391,7 +4391,7 @@
           "ID": "libselinux1@3.8.1-1",
           "Name": "libselinux1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libselinux1@3.8.1-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libselinux1@3.8.1-1?arch=amd64&distro=debian-13.7",
             "UID": "1d32a3f53846138a"
           },
           "Version": "3.8.1",
@@ -4404,7 +4404,7 @@
             "public-domain",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian SELinux maintainers \u003cselinux-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian SELinux maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4428,7 +4428,7 @@
           "ID": "libsemanage-common@3.8.1-1",
           "Name": "libsemanage-common",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsemanage-common@3.8.1-1?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsemanage-common@3.8.1-1?arch=all&distro=debian-13.7",
             "UID": "ecc6b54d8bc6318c"
           },
           "Version": "3.8.1",
@@ -4442,7 +4442,7 @@
             "LGPL-2.1-only",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian SELinux maintainers \u003cselinux-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian SELinux maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4461,7 +4461,7 @@
           "ID": "libsemanage2@3.8.1-1",
           "Name": "libsemanage2",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsemanage2@3.8.1-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsemanage2@3.8.1-1?arch=amd64&distro=debian-13.7",
             "UID": "9b85e9240d41ffa5"
           },
           "Version": "3.8.1",
@@ -4475,7 +4475,7 @@
             "LGPL-2.1-only",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Debian SELinux maintainers \u003cselinux-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian SELinux maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4502,7 +4502,7 @@
           "ID": "libsepol2@3.8.1-1",
           "Name": "libsepol2",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsepol2@3.8.1-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsepol2@3.8.1-1?arch=amd64&distro=debian-13.7",
             "UID": "ab7918253426cd4"
           },
           "Version": "3.8.1",
@@ -4518,7 +4518,7 @@
             "GPL-2.0-only",
             "GPL-2.0-or-later"
           ],
-          "Maintainer": "Debian SELinux maintainers \u003cselinux-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian SELinux maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4540,7 +4540,7 @@
           "ID": "libsmartcols1@2.41.5-0+deb13u1",
           "Name": "libsmartcols1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsmartcols1@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsmartcols1@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "94502fa5e10395c7"
           },
           "Version": "2.41.5",
@@ -4568,7 +4568,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4593,7 +4593,7 @@
           "ID": "libsqlite3-0@3.46.1-7+deb13u2",
           "Name": "libsqlite3-0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsqlite3-0@3.46.1-7%2Bdeb13u2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsqlite3-0@3.46.1-7%2Bdeb13u2?arch=amd64&distro=debian-13.7",
             "UID": "283f5d44571e2d3e"
           },
           "Version": "3.46.1",
@@ -4607,7 +4607,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Laszlo Boszormenyi (GCS) \u003cgcs@debian.org\u003e",
+          "Maintainer": "Laszlo Boszormenyi (GCS) <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4632,7 +4632,7 @@
           "ID": "libssl3t64@3.5.7-1~deb13u3",
           "Name": "libssl3t64",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libssl3t64@3.5.7-1~deb13u3?arch=amd64&distro=debian-13.7",
             "UID": "6feadfef6234ca5b"
           },
           "Version": "3.5.7",
@@ -4647,7 +4647,7 @@
             "GPL-1.0-or-later",
             "GPL-1.0-only"
           ],
-          "Maintainer": "Debian OpenSSL Team \u003cpkg-openssl-devel@alioth-lists.debian.net\u003e",
+          "Maintainer": "Debian OpenSSL Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4679,7 +4679,7 @@
           "ID": "libstdc++6@14.2.0-19",
           "Name": "libstdc++6",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libstdc%2B%2B6@14.2.0-19?arch=amd64&distro=debian-13.7",
             "UID": "13f22117cb429f4d"
           },
           "Version": "14.2.0",
@@ -4688,7 +4688,7 @@
           "SrcName": "gcc-14",
           "SrcVersion": "14.2.0",
           "SrcRelease": "19",
-          "Maintainer": "Debian GCC Maintainers \u003cdebian-gcc@lists.debian.org\u003e",
+          "Maintainer": "Debian GCC Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4715,7 +4715,7 @@
           "ID": "libsystemd0@257.13-1~deb13u1",
           "Name": "libsystemd0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libsystemd0@257.13-1~deb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libsystemd0@257.13-1~deb13u1?arch=amd64&distro=debian-13.7",
             "UID": "b0cd86eb50280666"
           },
           "Version": "257.13",
@@ -4734,7 +4734,7 @@
             "GPL-2.0-only",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Debian systemd Maintainers \u003cpkg-systemd-maintainers@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian systemd Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4758,7 +4758,7 @@
           "ID": "libtinfo6@6.5+20250216-2",
           "Name": "libtinfo6",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libtinfo6@6.5%2B20250216-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libtinfo6@6.5%2B20250216-2?arch=amd64&distro=debian-13.7",
             "UID": "c19e4ba0186ba329"
           },
           "Version": "6.5+20250216",
@@ -4772,7 +4772,7 @@
             "X11",
             "BSD-3-Clause"
           ],
-          "Maintainer": "Ncurses Maintainers \u003cncurses@packages.debian.org\u003e",
+          "Maintainer": "Ncurses Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4796,7 +4796,7 @@
           "ID": "libudev1@257.13-1~deb13u1",
           "Name": "libudev1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libudev1@257.13-1~deb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libudev1@257.13-1~deb13u1?arch=amd64&distro=debian-13.7",
             "UID": "9d7053ae266a0055"
           },
           "Version": "257.13",
@@ -4815,7 +4815,7 @@
             "GPL-2.0-only",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Debian systemd Maintainers \u003cpkg-systemd-maintainers@lists.alioth.debian.org\u003e",
+          "Maintainer": "Debian systemd Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4839,7 +4839,7 @@
           "ID": "libuuid1@2.41.5-0+deb13u1",
           "Name": "libuuid1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libuuid1@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libuuid1@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "3a03f1816c93c994"
           },
           "Version": "2.41.5",
@@ -4867,7 +4867,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4891,7 +4891,7 @@
           "ID": "libxxhash0@0.8.3-2",
           "Name": "libxxhash0",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libxxhash0@0.8.3-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libxxhash0@0.8.3-2?arch=amd64&distro=debian-13.7",
             "UID": "29b199fff138a1f3"
           },
           "Version": "0.8.3",
@@ -4905,7 +4905,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Josue Ortega \u003cjosue@debian.org\u003e",
+          "Maintainer": "Josue Ortega <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4928,7 +4928,7 @@
           "ID": "libzstd1@1.5.7+dfsg-1",
           "Name": "libzstd1",
           "Identifier": {
-            "PURL": "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/libzstd1@1.5.7%2Bdfsg-1?arch=amd64&distro=debian-13.7",
             "UID": "1edaaf7c1b6cdf0a"
           },
           "Version": "1.5.7+dfsg",
@@ -4943,7 +4943,7 @@
             "Zlib",
             "MIT"
           ],
-          "Maintainer": "RPM packaging team \u003cteam+pkg-rpm@tracker.debian.org\u003e",
+          "Maintainer": "RPM packaging team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -4966,7 +4966,7 @@
           "ID": "login@1:4.16.0-2+really2.41.5-0+deb13u1",
           "Name": "login",
           "Identifier": {
-            "PURL": "pkg:deb/debian/login@4.16.0-2%2Breally2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/login@4.16.0-2%2Breally2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "dc99754e767c40b9"
           },
           "Version": "4.16.0-2+really2.41.5",
@@ -4995,7 +4995,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5047,7 +5047,7 @@
           "ID": "login.defs@1:4.17.4-2",
           "Name": "login.defs",
           "Identifier": {
-            "PURL": "pkg:deb/debian/login.defs@4.17.4-2?arch=all\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/login.defs@4.17.4-2?arch=all&distro=debian-13.7&epoch=1",
             "UID": "b6a337588c67d5a3"
           },
           "Version": "4.17.4",
@@ -5064,7 +5064,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Shadow package maintainers \u003cpkg-shadow-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Shadow package maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5092,7 +5092,7 @@
           "ID": "mawk@1.3.4.20250131-1",
           "Name": "mawk",
           "Identifier": {
-            "PURL": "pkg:deb/debian/mawk@1.3.4.20250131-1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/mawk@1.3.4.20250131-1?arch=amd64&distro=debian-13.7",
             "UID": "fc097c5651b898a7"
           },
           "Version": "1.3.4.20250131",
@@ -5106,7 +5106,7 @@
             "X11",
             "CC-BY-3.0"
           ],
-          "Maintainer": "Boyuan Yang \u003cbyang@debian.org\u003e",
+          "Maintainer": "Boyuan Yang <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5144,7 +5144,7 @@
           "ID": "mount@2.41.5-0+deb13u1",
           "Name": "mount",
           "Identifier": {
-            "PURL": "pkg:deb/debian/mount@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/mount@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "d781ec5616a75c78"
           },
           "Version": "2.41.5",
@@ -5172,7 +5172,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5212,7 +5212,7 @@
           "ID": "ncurses-base@6.5+20250216-2",
           "Name": "ncurses-base",
           "Identifier": {
-            "PURL": "pkg:deb/debian/ncurses-base@6.5%2B20250216-2?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/ncurses-base@6.5%2B20250216-2?arch=all&distro=debian-13.7",
             "UID": "767a0231348a5cb5"
           },
           "Version": "6.5+20250216",
@@ -5226,7 +5226,7 @@
             "X11",
             "BSD-3-Clause"
           ],
-          "Maintainer": "Ncurses Maintainers \u003cncurses@packages.debian.org\u003e",
+          "Maintainer": "Ncurses Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5293,7 +5293,7 @@
           "ID": "ncurses-bin@6.5+20250216-2",
           "Name": "ncurses-bin",
           "Identifier": {
-            "PURL": "pkg:deb/debian/ncurses-bin@6.5%2B20250216-2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/ncurses-bin@6.5%2B20250216-2?arch=amd64&distro=debian-13.7",
             "UID": "5b541563cf6587e5"
           },
           "Version": "6.5+20250216",
@@ -5307,7 +5307,7 @@
             "X11",
             "BSD-3-Clause"
           ],
-          "Maintainer": "Ncurses Maintainers \u003cncurses@packages.debian.org\u003e",
+          "Maintainer": "Ncurses Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5347,7 +5347,7 @@
           "ID": "netbase@6.5",
           "Name": "netbase",
           "Identifier": {
-            "PURL": "pkg:deb/debian/netbase@6.5?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/netbase@6.5?arch=all&distro=debian-13.7",
             "UID": "9929ff265179fc61"
           },
           "Version": "6.5",
@@ -5357,7 +5357,7 @@
           "Licenses": [
             "GPL-2.0-only"
           ],
-          "Maintainer": "Marco d'Itri \u003cmd@linux.it\u003e",
+          "Maintainer": "Marco d'Itri <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5375,7 +5375,7 @@
           "ID": "openssl@3.5.7-1~deb13u3",
           "Name": "openssl",
           "Identifier": {
-            "PURL": "pkg:deb/debian/openssl@3.5.7-1~deb13u3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/openssl@3.5.7-1~deb13u3?arch=amd64&distro=debian-13.7",
             "UID": "8d6c820bcbcea8d1"
           },
           "Version": "3.5.7",
@@ -5390,7 +5390,7 @@
             "GPL-1.0-or-later",
             "GPL-1.0-only"
           ],
-          "Maintainer": "Debian OpenSSL Team \u003cpkg-openssl-devel@alioth-lists.debian.net\u003e",
+          "Maintainer": "Debian OpenSSL Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5649,7 +5649,7 @@
           "ID": "openssl-provider-legacy@3.5.7-1~deb13u3",
           "Name": "openssl-provider-legacy",
           "Identifier": {
-            "PURL": "pkg:deb/debian/openssl-provider-legacy@3.5.7-1~deb13u3?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/openssl-provider-legacy@3.5.7-1~deb13u3?arch=amd64&distro=debian-13.7",
             "UID": "abf96993e584b023"
           },
           "Version": "3.5.7",
@@ -5664,7 +5664,7 @@
             "GPL-1.0-or-later",
             "GPL-1.0-only"
           ],
-          "Maintainer": "Debian OpenSSL Team \u003cpkg-openssl-devel@alioth-lists.debian.net\u003e",
+          "Maintainer": "Debian OpenSSL Team <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -5688,7 +5688,7 @@
           "ID": "passwd@1:4.17.4-2",
           "Name": "passwd",
           "Identifier": {
-            "PURL": "pkg:deb/debian/passwd@4.17.4-2?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/passwd@4.17.4-2?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "7e83ab5858a7a76d"
           },
           "Version": "4.17.4",
@@ -5705,7 +5705,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Shadow package maintainers \u003cpkg-shadow-devel@lists.alioth.debian.org\u003e",
+          "Maintainer": "Shadow package maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6061,7 +6061,7 @@
           "ID": "perl-base@5.40.1-6+deb13u1",
           "Name": "perl-base",
           "Identifier": {
-            "PURL": "pkg:deb/debian/perl-base@5.40.1-6%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/perl-base@5.40.1-6%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "e64a633beeac3a7d"
           },
           "Version": "5.40.1",
@@ -6095,7 +6095,7 @@
             "GPL-2.0-only",
             "Artistic-2"
           ],
-          "Maintainer": "Niko Tyni \u003cntyni@debian.org\u003e",
+          "Maintainer": "Niko Tyni <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6735,7 +6735,7 @@
           "ID": "readline-common@8.2-6",
           "Name": "readline-common",
           "Identifier": {
-            "PURL": "pkg:deb/debian/readline-common@8.2-6?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/readline-common@8.2-6?arch=all&distro=debian-13.7",
             "UID": "e762758a1681f62e"
           },
           "Version": "8.2",
@@ -6753,7 +6753,7 @@
             "GFDL-1.3-or-later",
             "ISC-no-attribution"
           ],
-          "Maintainer": "Matthias Klose \u003cdoko@debian.org\u003e",
+          "Maintainer": "Matthias Klose <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6778,7 +6778,7 @@
           "ID": "sed@4.9-2+deb13u1",
           "Name": "sed",
           "Identifier": {
-            "PURL": "pkg:deb/debian/sed@4.9-2%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/sed@4.9-2%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "a041ea16982bb927"
           },
           "Version": "4.9",
@@ -6798,7 +6798,7 @@
             "BSL-1",
             "pcre"
           ],
-          "Maintainer": "Clint Adams \u003cclint@debian.org\u003e",
+          "Maintainer": "Clint Adams <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6867,7 +6867,7 @@
           "ID": "sqv@1.3.0-3+b2",
           "Name": "sqv",
           "Identifier": {
-            "PURL": "pkg:deb/debian/sqv@1.3.0-3%2Bb2?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/sqv@1.3.0-3%2Bb2?arch=amd64&distro=debian-13.7",
             "UID": "71acebf687a567ad"
           },
           "Version": "1.3.0",
@@ -6880,7 +6880,7 @@
             "LGPL-2.0-or-later",
             "LGPL-2.0-only"
           ],
-          "Maintainer": "Debian Rust Maintainers \u003cpkg-rust-maintainers@alioth-lists.debian.net\u003e",
+          "Maintainer": "Debian Rust Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6912,7 +6912,7 @@
           "ID": "sysvinit-utils@3.14-4",
           "Name": "sysvinit-utils",
           "Identifier": {
-            "PURL": "pkg:deb/debian/sysvinit-utils@3.14-4?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/sysvinit-utils@3.14-4?arch=amd64&distro=debian-13.7",
             "UID": "19ecbcb3d5bf6b26"
           },
           "Version": "3.14",
@@ -6928,7 +6928,7 @@
             "GPL-2.0-only",
             "LGPL-2.1-only"
           ],
-          "Maintainer": "Debian sysvinit maintainers \u003cdebian-init-diversity@chiark.greenend.org.uk\u003e",
+          "Maintainer": "Debian sysvinit maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -6959,7 +6959,7 @@
           "ID": "tar@1.35+dfsg-3.1",
           "Name": "tar",
           "Identifier": {
-            "PURL": "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/tar@1.35%2Bdfsg-3.1?arch=amd64&distro=debian-13.7",
             "UID": "4f69996c49afbaca"
           },
           "Version": "1.35+dfsg",
@@ -6979,7 +6979,7 @@
             "GPL-2.0-or-later",
             "GPL-2.0-only"
           ],
-          "Maintainer": "Janos Lenart \u003cocsi@debian.org\u003e",
+          "Maintainer": "Janos Lenart <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -7049,7 +7049,7 @@
           "ID": "tzdata@2026c-0+deb13u1",
           "Name": "tzdata",
           "Identifier": {
-            "PURL": "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?arch=all\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/tzdata@2026c-0%2Bdeb13u1?arch=all&distro=debian-13.7",
             "UID": "b3cbbf4ffe72ee34"
           },
           "Version": "2026c",
@@ -7061,7 +7061,7 @@
           "Licenses": [
             "public-domain"
           ],
-          "Maintainer": "GNU Libc Maintainers \u003cdebian-glibc@lists.debian.org\u003e",
+          "Maintainer": "GNU Libc Maintainers <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -7529,7 +7529,7 @@
           "ID": "util-linux@2.41.5-0+deb13u1",
           "Name": "util-linux",
           "Identifier": {
-            "PURL": "pkg:deb/debian/util-linux@2.41.5-0%2Bdeb13u1?arch=amd64\u0026distro=debian-13.7",
+            "PURL": "pkg:deb/debian/util-linux@2.41.5-0%2Bdeb13u1?arch=amd64&distro=debian-13.7",
             "UID": "e4d9863928456765"
           },
           "Version": "2.41.5",
@@ -7557,7 +7557,7 @@
             "LGPL-2.1-only",
             "LGPL-3.0-only"
           ],
-          "Maintainer": "Chris Hofstaedtler \u003czeha@debian.org\u003e",
+          "Maintainer": "Chris Hofstaedtler <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
@@ -7826,7 +7826,7 @@
           "ID": "zlib1g@1:1.3.dfsg+really1.3.1-1+b1",
           "Name": "zlib1g",
           "Identifier": {
-            "PURL": "pkg:deb/debian/zlib1g@1.3.dfsg%2Breally1.3.1-1%2Bb1?arch=amd64\u0026distro=debian-13.7\u0026epoch=1",
+            "PURL": "pkg:deb/debian/<adresse-masquee>%2Breally1.3.1-1%2Bb1?arch=amd64&distro=debian-13.7&epoch=1",
             "UID": "ec1c0574f56f96a0"
           },
           "Version": "1.3.dfsg+really1.3.1",
@@ -7840,7 +7840,7 @@
           "Licenses": [
             "Zlib"
           ],
-          "Maintainer": "Mark Brown \u003cbroonie@debian.org\u003e",
+          "Maintainer": "Mark Brown <<adresse-masquee>>",
           "Repository": {
             "Class": "official"
           },
