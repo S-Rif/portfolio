@@ -1,0 +1,419 @@
+# 2026-10-06 | rejeu local des scanners | avant = 1b326ba, après = f2b8f2e
+# versions : semgrep=1.179.0-nonroot checkov=3.3.23 trivy=0.75.0
+## avant · semgrep
+
+
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 3 files tracked by git with 151 Code rules:
+  Scanning 1 file with 151 python rules.
+
+
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+
+    labs/01-devsecops/app/app.py
+   ❯❯❱ python.lang.security.deserialization.avoid-pyyaml-load.avoid-pyyaml-load
+          ❰❰ Blocking ❱❱
+          Detected a possible YAML deserialization vulnerability. `yaml.unsafe_load`, `yaml.Loader`,
+          `yaml.CLoader`, and `yaml.UnsafeLoader` are all known to be unsafe methods of deserializing YAML. An
+          attacker with control over the YAML input could create special YAML input that allows the attacker
+          to run arbitrary Python code. This would allow the attacker to steal files, download and install
+          malware, or otherwise take over the machine. Use `yaml.safe_load` or `yaml.SafeLoader` instead.
+          Details: https://sg.run/we9Y
+
+           ▶▶┆ Autofix ▶ yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)
+            7┆ CONFIG = yaml.load("site: lyo\nusine: HubLabs\n", Loader=yaml.Loader)  # défaut volontaire
+               (Semgrep)
+
+
+
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 151
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 151 rules on 1 file: 1 finding.
+# code retour : 1
+## avant · checkov
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.23
+
+dockerfile scan results:
+
+Passed checks: 23, Failed checks: 2, Skipped checks: 0
+
+Check: CKV_DOCKER_1: "Ensure port 22 is not exposed"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-port-22-is-not-exposed
+Check: CKV_DOCKER_7: "Ensure the base image uses a non latest version tag"
+	PASSED for resource: /Dockerfile.FROM
+	File: /Dockerfile:1-1
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-base-image-uses-a-non-latest-version-tag
+Check: CKV_DOCKER_11: "Ensure From Alias are unique for multistage builds."
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-from-alias-is-unique-for-multistage-builds
+Check: CKV_DOCKER_10: "Ensure that WORKDIR values are absolute paths"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-workdir-values-are-absolute-paths
+Check: CKV_DOCKER_9: "Ensure that APT isn't used"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-is-not-used
+Check: CKV_DOCKER_5: "Ensure update instructions are not use alone in the Dockerfile"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-update-instructions-are-not-used-alone-in-the-dockerfile
+Check: CKV2_DOCKER_17: "Ensure that 'chpasswd' is not used to set or remove passwords"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/bc-docker-2-17
+Check: CKV2_DOCKER_1: "Ensure that sudo isn't used"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-dont-use-sudo
+Check: CKV2_DOCKER_6: "Ensure that certificate validation isn't disabled with the NODE_TLS_REJECT_UNAUTHORIZED environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-node-tls-secure
+Check: CKV2_DOCKER_12: "Ensure that certificate validation isn't disabled for npm via the 'NPM_CONFIG_STRICT_SSL' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl
+Check: CKV2_DOCKER_5: "Ensure that certificate validation isn't disabled with the PYTHONHTTPSVERIFY environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-PYTHONHTTPSVERIFY-secure
+Check: CKV2_DOCKER_14: "Ensure that certificate validation isn't disabled for git by setting the environment variable 'GIT_SSL_NO_VERIFY' to any value"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-git-ssl
+Check: CKV2_DOCKER_16: "Ensure that certificate validation isn't disabled with pip via the 'PIP_TRUSTED_HOST' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-trusted-host
+Check: CKV2_DOCKER_8: "Ensure that packages with untrusted or missing signatures are not used by apt-get via the '--allow-unauthenticated' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-authenticated
+Check: CKV2_DOCKER_10: "Ensure that packages with untrusted or missing signatures are not used by rpm via the '--nodigest', '--nosignature', '--noverify', or '--nofiledigest' options"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-rpm-signed
+Check: CKV2_DOCKER_13: "Ensure that certificate validation isn't disabled for npm or yarn by setting the option strict-ssl to false"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl2
+Check: CKV2_DOCKER_15: "Ensure that the yum and dnf package managers are not configured to disable SSL certificate validation via the 'sslverify' configuration option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-ssl
+Check: CKV2_DOCKER_4: "Ensure that certificate validation isn't disabled with the pip '--trusted-host' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-secure
+Check: CKV2_DOCKER_2: "Ensure that certificate validation isn't disabled with curl"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-curl-secure
+Check: CKV2_DOCKER_9: "Ensure that packages with untrusted or missing GPG signatures are not used by dnf, tdnf, or yum via the '--nogpgcheck' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-signed
+Check: CKV2_DOCKER_7: "Ensure that packages with untrusted or missing signatures are not used by apk via the '--allow-untrusted' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apk-trusted
+Check: CKV2_DOCKER_11: "Ensure that the '--force-yes' option is not used, as it disables signature validation and allows packages to be downgraded which can leave the system in a broken or inconsistent state"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-force
+Check: CKV2_DOCKER_3: "Ensure that certificate validation isn't disabled with wget"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:4-4
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-wget-secure
+Check: CKV_DOCKER_3: "Ensure that a user for the container has been created"
+	FAILED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created
+Check: CKV_DOCKER_2: "Ensure that HEALTHCHECK instructions have been added to container images"
+	FAILED for resource: /Dockerfile.
+	File: /Dockerfile:1-7
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images
+
+# code retour : 1
+## avant · trivy
+2026-10-06T08:23:16Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-06T08:23:16Z	WARN	[pip] Unable to find python `site-packages` directory. License detection is skipped.	err="unable to find path to Python executable"
+2026-10-06T08:23:16Z	INFO	Number of language-specific files	num=1
+2026-10-06T08:23:16Z	INFO	[pip] Detecting vulnerabilities...
+
+Report Summary
+
+┌──────────────────┬──────┬─────────────────┐
+│      Target      │ Type │ Vulnerabilities │
+├──────────────────┼──────┼─────────────────┤
+│ requirements.txt │ pip  │        1        │
+└──────────────────┴──────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+requirements.txt (pip)
+======================
+Total: 1 (HIGH: 0, CRITICAL: 1)
+
+┌─────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬────────────────────────────────────────────┐
+│ Library │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                   Title                    │
+├─────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼────────────────────────────────────────────┤
+│ PyYAML  │ CVE-2020-14343 │ CRITICAL │ fixed  │ 5.3.1             │ 5.4           │ PyYAML: incomplete fix for CVE-2020-1747   │
+│         │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2020-14343 │
+└─────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴────────────────────────────────────────────┘
+# code retour : 1
+## apres · semgrep
+
+
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 3 files tracked by git with 151 Code rules:
+  Scanning 1 file with 151 python rules.
+
+
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 0 (0 blocking)
+ • Rules run: 151
+ • Targets scanned: 1
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 151 rules on 1 file: 0 findings.
+(need more rules? `semgrep login` for additional free Semgrep Registry rules)
+
+If Semgrep missed a finding, please send us feedback to let us know!
+See https://semgrep.dev/docs/reporting-false-negatives/
+# code retour : 0
+## apres · checkov
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.23
+
+dockerfile scan results:
+
+Passed checks: 43, Failed checks: 0, Skipped checks: 0
+
+Check: CKV_DOCKER_1: "Ensure port 22 is not exposed"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-port-22-is-not-exposed
+Check: CKV_DOCKER_7: "Ensure the base image uses a non latest version tag"
+	PASSED for resource: /Dockerfile.FROM
+	File: /Dockerfile:1-1
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-base-image-uses-a-non-latest-version-tag
+Check: CKV_DOCKER_11: "Ensure From Alias are unique for multistage builds."
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-from-alias-is-unique-for-multistage-builds
+Check: CKV_DOCKER_10: "Ensure that WORKDIR values are absolute paths"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-workdir-values-are-absolute-paths
+Check: CKV_DOCKER_9: "Ensure that APT isn't used"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-is-not-used
+Check: CKV_DOCKER_5: "Ensure update instructions are not use alone in the Dockerfile"
+	PASSED for resource: /Dockerfile.
+	File: /Dockerfile:1-14
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-update-instructions-are-not-used-alone-in-the-dockerfile
+Check: CKV_DOCKER_8: "Ensure the last USER is not root"
+	PASSED for resource: /Dockerfile.USER
+	File: /Dockerfile:10-10
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-the-last-user-is-not-root
+Check: CKV_DOCKER_3: "Ensure that a user for the container has been created"
+	PASSED for resource: /Dockerfile.USER
+	File: /Dockerfile:10-10
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-a-user-for-the-container-has-been-created
+Check: CKV_DOCKER_2: "Ensure that HEALTHCHECK instructions have been added to container images"
+	PASSED for resource: /Dockerfile.HEALTHCHECK
+	File: /Dockerfile:12-13
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-that-healthcheck-instructions-have-been-added-to-container-images
+Check: CKV2_DOCKER_17: "Ensure that 'chpasswd' is not used to set or remove passwords"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/bc-docker-2-17
+Check: CKV2_DOCKER_17: "Ensure that 'chpasswd' is not used to set or remove passwords"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/bc-docker-2-17
+Check: CKV2_DOCKER_1: "Ensure that sudo isn't used"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-dont-use-sudo
+Check: CKV2_DOCKER_1: "Ensure that sudo isn't used"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-dont-use-sudo
+Check: CKV2_DOCKER_6: "Ensure that certificate validation isn't disabled with the NODE_TLS_REJECT_UNAUTHORIZED environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-node-tls-secure
+Check: CKV2_DOCKER_6: "Ensure that certificate validation isn't disabled with the NODE_TLS_REJECT_UNAUTHORIZED environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-node-tls-secure
+Check: CKV2_DOCKER_7: "Ensure that packages with untrusted or missing signatures are not used by apk via the '--allow-untrusted' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apk-trusted
+Check: CKV2_DOCKER_7: "Ensure that packages with untrusted or missing signatures are not used by apk via the '--allow-untrusted' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apk-trusted
+Check: CKV2_DOCKER_15: "Ensure that the yum and dnf package managers are not configured to disable SSL certificate validation via the 'sslverify' configuration option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-ssl
+Check: CKV2_DOCKER_15: "Ensure that the yum and dnf package managers are not configured to disable SSL certificate validation via the 'sslverify' configuration option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-ssl
+Check: CKV2_DOCKER_9: "Ensure that packages with untrusted or missing GPG signatures are not used by dnf, tdnf, or yum via the '--nogpgcheck' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-signed
+Check: CKV2_DOCKER_9: "Ensure that packages with untrusted or missing GPG signatures are not used by dnf, tdnf, or yum via the '--nogpgcheck' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-yum-signed
+Check: CKV2_DOCKER_12: "Ensure that certificate validation isn't disabled for npm via the 'NPM_CONFIG_STRICT_SSL' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl
+Check: CKV2_DOCKER_12: "Ensure that certificate validation isn't disabled for npm via the 'NPM_CONFIG_STRICT_SSL' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl
+Check: CKV2_DOCKER_8: "Ensure that packages with untrusted or missing signatures are not used by apt-get via the '--allow-unauthenticated' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-authenticated
+Check: CKV2_DOCKER_8: "Ensure that packages with untrusted or missing signatures are not used by apt-get via the '--allow-unauthenticated' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-authenticated
+Check: CKV2_DOCKER_11: "Ensure that the '--force-yes' option is not used, as it disables signature validation and allows packages to be downgraded which can leave the system in a broken or inconsistent state"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-force
+Check: CKV2_DOCKER_11: "Ensure that the '--force-yes' option is not used, as it disables signature validation and allows packages to be downgraded which can leave the system in a broken or inconsistent state"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-apt-force
+Check: CKV2_DOCKER_13: "Ensure that certificate validation isn't disabled for npm or yarn by setting the option strict-ssl to false"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl2
+Check: CKV2_DOCKER_13: "Ensure that certificate validation isn't disabled for npm or yarn by setting the option strict-ssl to false"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-npm-strict-ssl2
+Check: CKV2_DOCKER_4: "Ensure that certificate validation isn't disabled with the pip '--trusted-host' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-secure
+Check: CKV2_DOCKER_4: "Ensure that certificate validation isn't disabled with the pip '--trusted-host' option"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-secure
+Check: CKV2_DOCKER_10: "Ensure that packages with untrusted or missing signatures are not used by rpm via the '--nodigest', '--nosignature', '--noverify', or '--nofiledigest' options"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-rpm-signed
+Check: CKV2_DOCKER_10: "Ensure that packages with untrusted or missing signatures are not used by rpm via the '--nodigest', '--nosignature', '--noverify', or '--nofiledigest' options"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-rpm-signed
+Check: CKV2_DOCKER_5: "Ensure that certificate validation isn't disabled with the PYTHONHTTPSVERIFY environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-PYTHONHTTPSVERIFY-secure
+Check: CKV2_DOCKER_5: "Ensure that certificate validation isn't disabled with the PYTHONHTTPSVERIFY environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-PYTHONHTTPSVERIFY-secure
+Check: CKV2_DOCKER_14: "Ensure that certificate validation isn't disabled for git by setting the environment variable 'GIT_SSL_NO_VERIFY' to any value"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-git-ssl
+Check: CKV2_DOCKER_14: "Ensure that certificate validation isn't disabled for git by setting the environment variable 'GIT_SSL_NO_VERIFY' to any value"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-git-ssl
+Check: CKV2_DOCKER_16: "Ensure that certificate validation isn't disabled with pip via the 'PIP_TRUSTED_HOST' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-trusted-host
+Check: CKV2_DOCKER_16: "Ensure that certificate validation isn't disabled with pip via the 'PIP_TRUSTED_HOST' environment variable"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-pip-trusted-host
+Check: CKV2_DOCKER_2: "Ensure that certificate validation isn't disabled with curl"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-curl-secure
+Check: CKV2_DOCKER_2: "Ensure that certificate validation isn't disabled with curl"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-curl-secure
+Check: CKV2_DOCKER_3: "Ensure that certificate validation isn't disabled with wget"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:3-5
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-wget-secure
+Check: CKV2_DOCKER_3: "Ensure that certificate validation isn't disabled with wget"
+	PASSED for resource: /Dockerfile.RUN
+	File: /Dockerfile:7-8
+	Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/docker-policies/docker-policy-index/ensure-docker-wget-secure
+
+# code retour : 0
+## apres · trivy
+2026-10-06T08:23:30Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-06T08:23:30Z	WARN	[pip] Unable to find python `site-packages` directory. License detection is skipped.	err="unable to find path to Python executable"
+2026-10-06T08:23:30Z	INFO	Number of language-specific files	num=1
+2026-10-06T08:23:30Z	INFO	[pip] Detecting vulnerabilities...
+
+Report Summary
+
+┌──────────────────┬──────┬─────────────────┐
+│      Target      │ Type │ Vulnerabilities │
+├──────────────────┼──────┼─────────────────┤
+│ requirements.txt │ pip  │        0        │
+└──────────────────┴──────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+# code retour : 0
