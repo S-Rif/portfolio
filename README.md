@@ -1,4 +1,4 @@
-# Portfolio · Cloud, Réseau, Sécurité OT/IT
+#  · Cloud, Réseau, Sécurité OT/IT
 
 [![qualite](https://github.com/S-Rif/portfolio/actions/workflows/qualite.yml/badge.svg)](https://github.com/S-Rif/portfolio/actions/workflows/qualite.yml)
 [![labs](https://github.com/S-Rif/portfolio/actions/workflows/labs.yml/badge.svg)](https://github.com/S-Rif/portfolio/actions/workflows/labs.yml)
